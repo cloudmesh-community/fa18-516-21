@@ -5,3 +5,7 @@
 * Created notebook.md
 * Created account on futuresystems and chameleoncloud
 * Fork book repo and install required tools to build .epub successfully
+
+# Week Fri 09/07/18 - 09/13/18
+
+* Generate and add pub key for access to kubernetes
