@@ -9,3 +9,5 @@
 # Week Fri 09/07/18 - 09/13/18
 
 * Generate and add pub key for access to kubernetes
+* Added "Project Natick" information to book repo and raised PR
+
