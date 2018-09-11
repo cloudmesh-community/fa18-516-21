@@ -10,4 +10,5 @@
 
 * Generate and add pub key for access to kubernetes
 * Added "Project Natick" information to book repo and raised PR
+* Added graphql.md draft and updated sections information
 
