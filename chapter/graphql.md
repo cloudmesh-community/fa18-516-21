@@ -17,7 +17,7 @@ In GraphQL world, query is what we request to graphql server and the result will
 
 Here's how a simple graphQL query would look like
 
-``` 
+```
 {
     person {
         name 
@@ -392,5 +392,23 @@ Response
 ### Querying implemented GraphQL server
 
 ## Pros and Cons of Using GraphQL
+### Pros
+* Unlike REST APIs, only the required data is fetched, nothing more nothing less, which minimizes the data transferred over network
+* Seperation of concern is achieved between client and server. Client requests data entities with fields needed for the UI in one query request while server knows about the data structure and how to resolve the data from its sources which could be database, web service, microservice, external APIs, etc.
+* Versioning is simpler than REST, since we only have to take care of it when we want to remove any of the fields. Even then we can first mark the field to be removed as deprecated. And later on, this field can be removed when not many clients are using it.
+```
+type Car {
+    id: ID!
+    make: String
+    description: String @deprecated(reason: "Field is deprecated!")
+}
+``` 
+* Graphql is gaining momentum as its community, support and enthusiasm is growing. Many graphql editors, IDEs and packages are getting added day by day. 
+### Cons
+* Graphql query can get very complex. Client may not necessarily know how expensive the queries can be for server to go and gather the data. This can be overcome by limiting the query depth, recursion, etc.
+* Caching gets pretty tricky and messy in case of graphql. In REST, you can have seperate API url for each resource requested, caching can be done at this resource level. However in graphql you can have different queries but they can operate over a single API url. This means that caching needs to be done at the field level rather, and hence it is difficult.
+
 
 ## Conclusion
+In general there are many reasons to have graphql in our software ecosystem. Beauty of it lies in the flexibility and extensiveness it provides and also fits well with the microservices architecture which many are moving towards. Already big players like Github, Pinterest, Intuit, Coursera, Shopify, etc. are using it.
+With that being said, REST APIs still have it's own place and may prove better choice in certain use cases. Both REST and graphql have some tradeoffs which need to be understood before being considered.
