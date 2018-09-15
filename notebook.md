@@ -13,3 +13,6 @@
 * Added graphql.md draft and updated sections information
 * Updated grapql.md draft with GraphQL introduction
 
+# Week Fri 09/14/18 - 09/20/18
+
+* Changed code formatting in graphql.md draft

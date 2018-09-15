@@ -146,15 +146,59 @@ App asks for data from server in form of GraphQL query. A GraphQL query can have
 
 A very simple definition of GraphQL would be asking for speific fields on objects. Check below example
 
-| Query         | Data          |
-| ------------- |:-------------:|
-| {employee {name}} | {"data": {"employee": {"name": "John Doe"}}} |
+For query
+
+```
+{
+    employee {
+        name
+    }
+}
+```
+
+Response 
+
+``` json
+{
+    "data": {
+        "employee": {
+            "name": "John Doe"
+        }
+    }
+}
+```
 
 As we can see data format exactly looks like the query. This way client knows excatly what data it has to consume. In above example "name" fields returns data of type "String". Client can also ask for an object. For example
 
-| Query         | Data          |
-| ------------- |:-------------:|
-| {employer {name employees {name}}} | {"data": {"employer": {"name": "ABC ORG", employees: [{"name": "John Doe"}]}}} |
+For Query
+
+```
+{
+    employer {
+        name
+        employees {
+            name
+        }
+    }
+}
+```
+
+Response
+
+``` json
+{
+    "data": {
+        "employer": {
+            "name": "John Doe",
+            "employees": [{
+                "name": "John Doe"
+            }, {
+                "name": "Jon Doe"
+            }]
+        }
+    }
+}
+```
 
 #### Arguments
 
