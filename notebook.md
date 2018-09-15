@@ -16,3 +16,4 @@
 # Week Fri 09/14/18 - 09/20/18
 
 * Changed code formatting in graphql.md draft
+* Updated Query syntax section in graphql.md draft  
