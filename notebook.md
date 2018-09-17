@@ -17,3 +17,4 @@
 
 * Changed code formatting in graphql.md draft
 * Updated Query syntax section in graphql.md draft  
+* Wrote graphql-python example and updated graphql.md for same.
