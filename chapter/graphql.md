@@ -17,7 +17,7 @@ In GraphQL world, query is what we request to graphql server and the result will
 
 Here's how a simple graphQL query would look like
 
-```
+```graphql
 {
     person {
         name 
@@ -52,7 +52,7 @@ But for this we need to define the types that are going to be honored by graphql
 
 Types are defined as part of each graphql service, in graphql schema language which are programming language agnostic. Below is an example of a graphql type.
 
-```
+```graphql
 type Person {
     name: String!
     age: Int
@@ -73,7 +73,7 @@ Graphql supports the below scalar types:
 ### Enumeration Types
 Enums also are scalar types which define certain set of restricted values. When a graphql schema defines a field of enum type, we expect that field's value to be one of the enum values only.
 
-```
+```graphql
 enum FuelType {
     Petrol
     Diesel
@@ -86,7 +86,7 @@ Similar to any programming language, graphql type system also supports interface
 
 As we can see in the below example, Vehicle is an interface which declares Id, Name and Wheels fields. This means that Motorcycle and Car which implement Vehicle, must have these fields. They may or may not have their own additional fields like Make in case of Motorcycle and Fuel in case of Car.
 
-```
+```graphql
 interface Vehicle {
     Id: ID!
     Name: String!
@@ -111,13 +111,13 @@ type Car implements Vehicle {
 ### Union Types
 As the name suggests, union types are union of two or more types. Here's how we can define a union type.
 
-```
+```graphql
 union VehicleType = Motorcycle | Car
 ```
 
 Now when we write a graphql query to fetch VehicleType information, we can ask some of the common fields and some of the specific fields conditionally. Below is an example of graphql query which is requesting for AllVehicleTypes with common fields like Id, Name and fields specific to either Motorcycle or Car.
 
-```
+```graphql
 {
     AllVehicleTypes {
         Id
@@ -146,7 +146,7 @@ A very simple definition of GraphQL would be asking for speific fields on object
 
 Query
 
-```
+```graphql
 {
     employee {
         name
@@ -156,7 +156,7 @@ Query
 
 Response 
 
-``` json
+```json
 {
     "data": {
         "employee": {
@@ -169,7 +169,7 @@ Response
 As we can see data format exactly looks like the query. This way client knows excatly what data it has to consume. In above example "name" fields returns data of type "String". Client can also ask for an object. For example
 
 Query
-```
+```graphql
 {
     employer {
         name
@@ -181,7 +181,7 @@ Query
 ```
 
 Response
-``` json
+```json
 {
     "data": {
         "employer": {
@@ -201,7 +201,7 @@ Response
 Unlike REST services where you can pass parameters via query parameters(GET) or request body(POST) in your request, in GraphQL you can provide every field an argument which makes easy for fetching data. These arguments can be of scalar type, enumeration type etc. 
 
 Query
-```
+```graphql
 {
     employees(age: 29) {
         name
@@ -211,7 +211,7 @@ Query
 ```
 
 Response
-``` json
+```json
 {
     "data": {
         "employees": [{
@@ -230,7 +230,7 @@ Response
 To resuse your fields in query you can create Fragments in GraphQL. For example
 
 Query
-```
+```graphql
 {
     employer(id: 10) {
         ...employeeInfo
@@ -245,7 +245,7 @@ fragment employeeInfo on Employer {
 ```
 
 Response
-``` json
+```json
 {
     "employer": {
         "name": "Abc Company",
@@ -265,7 +265,7 @@ Fragement are generally used to split complex queries into chunks and reuse of q
 Variables are used to pass dynamic values to queries. It's not good practice to interpolate dynamic values from user action on client side to construct queries. Instead of that GraphQL provides a way to define a variable and pass value for that variable at runtime using dictionary.
 
 Query
-```
+```graphql
 {
     employees(age: $employeeAge) {
         name
@@ -281,7 +281,7 @@ Query
 ```
 
 Response
-``` json
+```json
 {
     "data": {
         "employees": [{
@@ -303,7 +303,7 @@ Directives are used to change structure of queries at runtime using variables. D
 * @Include (if: Boolean) - It inclues the field if argument is true
 
 Query
-```
+```graphql
 {
     employees(age: $employeeAge) {
         name
@@ -316,7 +316,7 @@ Query
 }
 ```
 
-``` json
+```json
 {
     "employeeAge": 29,
     "showPersonalInfo": true
@@ -324,7 +324,7 @@ Query
 ```
 
 Response
-``` json
+```json
 {
     "data": {
         "employees": [{
@@ -344,7 +344,7 @@ Response
 Mutations are used to modify server side data. 
 
 Query
-```
+```graphql
 mutation CreateEmployeeForEmployer($employer: Employer!, $employee: Employee!) {
     createEmployee(employer: $employer, employee: $employee) {
         name
@@ -353,7 +353,7 @@ mutation CreateEmployeeForEmployer($employer: Employer!, $employee: Employee!) {
 }
 ```
 
-``` json
+```json
 {
     "employer": "Abc Company",
     "employee": {
@@ -364,7 +364,7 @@ mutation CreateEmployeeForEmployer($employer: Employer!, $employee: Employee!) {
 ```
 
 Response
-``` json
+```json
 {
     "data": {
         "createEmployee": {
@@ -389,7 +389,7 @@ GraphQL is supported in Python, JavaScript, Java, Ruby, C#, Go, PHP, Erlang, Sca
 
 To start with GraphQL server implementation in python we will create virtual environment for project to keep all the dependencies isolated from other projects and system. To leave it execute "deactivate" command in shell. Always remember to activate virtual environment.  
 
-```shell
+```bash
 mkdir python-graphql-example
 cd python-graphql-example
 python3 -m venv venv
@@ -398,7 +398,7 @@ source venv/bin/activate
 
 Now the project has been changed to (venv) so it means we are in virtual environment. Execute below commands
 
-```shell
+```bash
 pip install django==2.0.2 graphene==2.0.1 graphene-django==2.0.0 django-filter==1.1.0 django-graphql-jwt==0.1.5
 django-admin startproject cloudmeshrepo
 cd cloudmeshrepo
@@ -429,7 +429,7 @@ Now django seperates project into apps. Here we will have one app for Users and 
 
 Go to root dir of project and execute below command
 
-```shell
+```bash
 python manage.py startapp repos
 ```
 
@@ -454,7 +454,7 @@ INSTALLED_APPS = (
 
 Go to root folder and execute below commands. It will create table for new modeld
 
-```shell
+```bash
 python manage.py makemigrations
 python manage.py migrate
 
@@ -523,7 +523,7 @@ urlpatterns = [
 
 Start your server using below command
 
-```shell
+```bash
 python manage.py runserver
 ```
 
@@ -582,7 +582,7 @@ Example avaialble at : https://github.com/cloudmesh-community/fa18-516-21/tree/m
 * Unlike REST APIs, only the required data is fetched, nothing more nothing less, which minimizes the data transferred over network
 * Seperation of concern is achieved between client and server. Client requests data entities with fields needed for the UI in one query request while server knows about the data structure and how to resolve the data from its sources which could be database, web service, microservice, external APIs, etc.
 * Versioning is simpler than REST, since we only have to take care of it when we want to remove any of the fields. Even then we can first mark the field to be removed as deprecated. And later on, this field can be removed when not many clients are using it.
-```
+```graphql
 type Car {
     id: ID!
     make: String
