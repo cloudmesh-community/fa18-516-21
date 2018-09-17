@@ -381,6 +381,8 @@ Because of use of types in GraphQL query we can know whether query is valid or n
 
 ## GraphQL Implementations
 
+GraphQL is supported in Python, JavaScript, Java, Ruby, C#, Go, PHP, Erlang, Scala, Go, Groovy, Elixir.
+
 ## GraphQL-python (Graphene) Example
 
 ### Getting Started
