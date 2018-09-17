@@ -598,3 +598,8 @@ type Car {
 ## Conclusion
 In general there are many reasons to have graphql in our software ecosystem. Beauty of it lies in the flexibility and extensiveness it provides and also fits well with the microservices architecture which many are moving towards. Already big players like Github, Pinterest, Intuit, Coursera, Shopify, etc. are using it.
 With that being said, REST APIs still have it's own place and may prove better choice in certain use cases. Both REST and graphql have some tradeoffs which need to be understood before being considered.
+
+## References 
+
+* Official GraphQL documentation https://graphql.org/learn/
+* GraphQL python example https://www.howtographql.com/graphql-python/0-introduction/
