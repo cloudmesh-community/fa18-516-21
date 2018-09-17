@@ -140,9 +140,7 @@ Now when we write a graphql query to fetch VehicleType information, we can ask s
 
 App asks for data from server in form of GraphQL query. A GraphQL query can have different fields, arguments etc which is described below.
 
-### Query Syntax
-
-#### Fields
+### Fields
 
 A very simple definition of GraphQL would be asking for speific fields on objects. Check below example
 
@@ -198,7 +196,7 @@ Response
 }
 ```
 
-#### Arguments
+### Arguments
 
 Unlike REST services where you can pass parameters via query parameters(GET) or request body(POST) in your request, in GraphQL you can provide every field an argument which makes easy for fetching data. These arguments can be of scalar type, enumeration type etc. 
 
@@ -227,7 +225,7 @@ Response
 }
 ```
 
-#### Fragments
+### Fragments
 
 To resuse your fields in query you can create Fragments in GraphQL. For example
 
@@ -262,7 +260,7 @@ Response
 
 Fragement are generally used to split complex queries into chunks and reuse of query fields.
 
-#### Variables
+### Variables
 
 Variables are used to pass dynamic values to queries. It's not good practice to interpolate dynamic values from user action on client side to construct queries. Instead of that GraphQL provides a way to define a variable and pass value for that variable at runtime using dictionary.
 
@@ -297,7 +295,7 @@ Response
 }
 ```
 
-#### Directives
+### Directives
 
 Directives are used to change structure of queries at runtime using variables. Directive can be attached to field or fragment inclusion. There are two directives which must be supported by any graphql-server implementation
 
@@ -341,7 +339,7 @@ Response
 }
 ```
 
-#### Mutations
+### Mutations
 
 Mutations are used to modify server side data. 
 
@@ -379,7 +377,7 @@ Response
 
 ### Query Validation
 
-### Query Executiom
+Because of use of types in GraphQL query we can know whether query is valid or not before executing it. It can be achieved using validator provided by GraphQL implementation. To use validator you need to write test cases and use validator to validate schema
 
 ## GraphQL Implementations
 
