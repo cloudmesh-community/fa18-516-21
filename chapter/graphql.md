@@ -575,6 +575,8 @@ In the right pane you will see below output
 }
 ```
 
+Example avaialble at : https://github.com/cloudmesh-community/fa18-516-21/tree/master/python-graphql-example
+
 ## Pros and Cons of Using GraphQL
 ### Pros
 * Unlike REST APIs, only the required data is fetched, nothing more nothing less, which minimizes the data transferred over network
