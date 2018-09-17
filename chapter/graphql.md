@@ -387,9 +387,193 @@ GraphQL is supported in Python, JavaScript, Java, Ruby, C#, Go, PHP, Erlang, Sca
 
 ### Getting Started
 
+To start with GraphQL server implementation in python we will create virtual environment for project to keep all the dependencies isolated from other projects and system. To leave it execute "deactivate" command in shell. Always remember to activate virtual environment.  
+
+```shell
+mkdir python-graphql-example
+cd python-graphql-example
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Now the project has been changed to (venv) so it means we are in virtual environment. Execute below commands
+
+```shell
+pip install django==2.0.2 graphene==2.0.1 graphene-django==2.0.0 django-filter==1.1.0 django-graphql-jwt==0.1.5
+django-admin startproject cloudmeshrepo
+cd cloudmeshrepo
+python manage.py migrate
+python manage.py runserver
+```
+
+Last command will start server on localhost and you can access it at http://localhost:8000 URL. It will show you welcome page for django. Now open settings.py file under cloudmeshrepo/cloudmeshrepo folder and append following to INSTALLED_APPS
+
+```python
+INSTALLED_APPS = (
+    # After the default packages
+    'graphene_django',
+)
+```
+
+And at the end of settings.py add following line
+
+```python
+GRAPHENE = {
+    'SCHEMA': 'cloudmeshrepo.schema.schema',
+}
+```
+
 ### GraphQL server implementation
 
+Now django seperates project into apps. Here we will have one app for Users and one for Repos. Django provides support for SQLite so we will use that for demo.
+
+Go to root dir of project and execute below command
+
+```shell
+python manage.py startapp repos
+```
+
+Open repos/models.py and add following line
+
+```python
+class Repo(models.Model):
+    url = models.URLField()
+    name = models.TextField(blank=False)
+    full_name = models.TextField(blank=False)
+    description = models.TextField(blank=True)
+```
+
+Now open cloudmeshrepo/settings.py and append below line into INSTALLED_APPS
+
+```python
+INSTALLED_APPS = (
+    # After the graphene_django app
+    'repos',
+)
+```
+
+Go to root folder and execute below commands. It will create table for new modeld
+
+```shell
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py shell
+```
+
+Last command will open python shell. Execute below command inside that shell to create some data. Below example data we got from github's API https://api.github.com/users/cloudmesh-community/repos.
+
+```python
+from repos.models import Repo
+Repo.objects.create(name="boat",full_name="cloudmesh-community/boat",url="https://github.com/cloudmesh-community/boat",description="S.T.A.R. boat")
+Repo.objects.create(name="book",full_name="cloudmesh-community/book",url="https://github.com/cloudmesh-community/book",description="Gregor von Laszewski")
+Repo.objects.create(name="cm",full_name="cloudmesh-community/cm",url="https://github.com/cloudmesh-community/cm",description="Cloudmesh v4")
+Repo.objects.create(name="cm-burn",full_name="cloudmesh-community/cm-burn",url="https://github.com/cloudmesh-community/cm-burn",description="Burns many SD cards so we can build a Raspberry PI cluster")
+exit()
+```
+
+Now create repos/schema.py with below code. This will introduce custom type of Repo and query with resolver for repos.
+
+```python
+import graphene
+from graphene_django import DjangoObjectType
+
+from .models import Repo
+
+
+class RepoType(DjangoObjectType):
+    class Meta:
+        model = Repo
+
+
+class Query(graphene.ObjectType):
+    repos = graphene.List(RepoType)
+
+    def resolve_repos(self, info, **kwargs):
+        return Repo.objects.all()
+```
+
+Create cloudmeshrepo/schema.py with below code. It just inherits query defind in repos app. This way we are able to isolate schema to their apps.
+
+```python
+import graphene
+  
+import repos.schema
+
+
+class Query(repos.schema.Query, graphene.ObjectType):
+    pass
+
+
+schema = graphene.Schema(query=Query)
+```
 ### Querying implemented GraphQL server
+
+Schema is created now to query it we will use GraphiQL which is playground for graphql queries. Open cloudmeshrepo/urls.py and append following code
+
+```python
+from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+]
+```
+
+Start your server using below command
+
+```shell
+python manage.py runserver
+```
+
+Now open http://localhost:8000/graphql URL in your broweser. You will see GraphiQL. In the left pane add below query
+
+```graphql
+{
+  repos {
+    name
+    fullName
+    url
+    description
+  }
+}
+```
+
+In the right pane you will see below output
+
+```json
+{
+  "data": {
+    "repos": [
+      {
+        "name": "boat",
+        "fullName": "cloudmesh-community/boat",
+        "url": "https://github.com/cloudmesh-community/boat",
+        "description": "S.T.A.R. boat"
+      },
+      {
+        "name": "book",
+        "fullName": "cloudmesh-community/book",
+        "url": "https://github.com/cloudmesh-community/book",
+        "description": "Gregor von Laszewski"
+      },
+      {
+        "name": "cm",
+        "fullName": "cloudmesh-community/cm",
+        "url": "https://github.com/cloudmesh-community/cm",
+        "description": "Cloudmesh v4"
+      },
+      {
+        "name": "cm-burn",
+        "fullName": "cloudmesh-community/cm-burn",
+        "url": "https://github.com/cloudmesh-community/cm-burn",
+        "description": "Burns many SD cards so we can build a Raspberry PI cluster"
+      }
+    ]
+  }
+}
+```
 
 ## Pros and Cons of Using GraphQL
 ### Pros
