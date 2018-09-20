@@ -575,7 +575,7 @@ In the right pane you will see below output
 }
 ```
 
-Example avaialble at : https://github.com/cloudmesh-community/fa18-516-21/tree/master/python-graphql-example
+Examples avaialble at : https://github.com/cloudmesh-community/fa18-516-21/tree/master/graphql-examples
 
 ## Pros and Cons of Using GraphQL
 ### Pros
