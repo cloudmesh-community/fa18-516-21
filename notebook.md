@@ -18,3 +18,8 @@
 * Changed code formatting in graphql.md draft
 * Updated Query syntax section in graphql.md draft  
 * Wrote graphql-python example and updated graphql.md for same.
+
+# Week Fri 09/21/18 - 09/27/18
+
+* Exploring chameleon cloud and how to spawn an instance.
+* Updated README.yml
