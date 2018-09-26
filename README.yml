@@ -12,7 +12,7 @@ chapter:
   url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/chapter/graphql.md"
 project:
   title: TBD
-  url: TBD
+  url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-paper"
 other:
   title: "Validate YAML script in Python"
   url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/validate_yml.py"
