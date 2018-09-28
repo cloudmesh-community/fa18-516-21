@@ -603,3 +603,5 @@ With that being said, REST APIs still have it's own place and may prove better c
 
 * Official GraphQL documentation https://graphql.org/learn/
 * GraphQL python example https://www.howtographql.com/graphql-python/0-introduction/
+* GraphQL mutation example https://www.howtographql.com/graphql-python/3-mutations/
+* GraphQL JWT authentication example https://www.howtographql.com/graphql-python/4-authentication/
