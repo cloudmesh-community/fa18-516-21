@@ -934,3 +934,4 @@ With that being said, REST APIs still have it's own place and may prove better c
 * GraphQL JWT authentication example https://www.howtographql.com/graphql-python/4-authentication/
 * GraphQL and Authentication https://medium.com/the-graphqlhub/graphql-and-authentication-b73aed34bbeb
 * JWT tokens https://stackoverflow.com/a/39914013
+* GitHub API v4 https://developer.github.com/v4/
