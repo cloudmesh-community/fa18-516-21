@@ -23,3 +23,8 @@
 
 * Exploring chameleon cloud and how to spawn an instance.
 * Updated README.yml
+
+# Week Fri 09/21/18 - 09/27/18
+
+* Update graphql.md draft to add GitHub GraphQL API v4 use
+* Created mutation example using GitHUb API
