@@ -379,6 +379,9 @@ Response
 
 Because of use of types in GraphQL query we can know whether query is valid or not before executing it. It can be achieved using validator provided by GraphQL implementation. To use validator you need to write test cases and use validator to validate schema
 
+## Django
+Django is a very popular full-blown python web framework which is fast and comes with a lot of boilerplate code. Django is matured and has a huge community support as against flask which is very new, still evolving and generally considered for only small applications. Django has inbuilt support for Object Relational Mapping which is based on Database Code-First approach. Please refer https://www.djangoproject.com/ for more Django information.
+
 ## GraphQL Implementations
 
 GraphQL is supported in Python, JavaScript, Java, Ruby, C#, Go, PHP, Erlang, Scala, Go, Groovy, Elixir.
@@ -575,7 +578,189 @@ In the right pane you will see below output
 }
 ```
 
-Examples avaialble at : https://github.com/cloudmesh-community/fa18-516-21/tree/master/graphql-examples
+### Mutation example
+Similar to Query you can add mutation to create your own data. Add a Create class for new repo object which will inherit from graphene's Mutation class. This class will accept new repo properties as Arguments. Please see the below code snippet
+
+```python
+class CreateRepo(graphene.Mutation):
+    url = graphene.String()
+    name = graphene.String()
+    full_name = graphene.String()
+    description = graphene.String()
+
+    class Arguments:
+        url = graphene.String()
+        name = graphene.String()
+        full_name = graphene.String()
+        description = graphene.String()
+
+    def mutate(self, info, url, name, full_name, description):
+        repo = Repo(url=url, name=name, full_name=full_name, description=description)
+        repo.save()
+
+        return CreateRepo(url=repo.url, name=repo.name, full_name=repo.full_name, description=repo.description)
+```
+
+Similar to Query, add Mutation class in repo's schema.
+
+```python
+class Mutation(graphene.ObjectType):
+    create_repo = CreateRepo.Field()
+```
+
+Now you can run the below mutation on graphiql to add a new repo
+
+```graphql
+mutation {
+  createRepo (
+    url: "https://github.com/cloudmesh-community/vineet-test",
+    name: "vineet-test",
+    fullName: "cloudmesh-community/vineet-test",
+    description: "Test repo"
+  ) {
+    url
+    name
+    fullName
+    description
+  }
+}
+```
+
+And this will not just create a new repo but also get the newly added repo
+
+```json
+{
+  "data": {
+    "createRepo": {
+      "url": "https://github.com/cloudmesh-community/vineet-test",
+      "name": "vineet-test",
+      "fullName": "cloudmesh-community/vineet-test",
+      "description": "Test repo"
+    }
+  }
+}
+```
+
+### GraphQL Authentication
+
+There a few ways of adding authentication to your graphql server
+* Add a REST Api endpoint which will take care of authenticating the user and only the logged in users can make graphql queries. This method can also be used to restrict only a subset of graphql queries. This is ideal for existing applications, which have REST endpoints, and which are trying to migrate over to graphql.
+* Add basic authentication to graphql server which will just accept credentials in raw format and once authenticated, logged in user can start graphql querying
+* Add JSON Web Token authentication to graphql server, since most of the applications these days are stateless. 
+
+### JSON Web Authentication
+
+This is a more secure and sophisticated way of authentication. Client has to provide username and password to mutate a token which has limited expiry time. Once token is generated, it needs to be provided with each subsequent graphql api calls which indicates graphql server of authenticated requests.
+
+To enable JWT authentication in your graphql server, you need to install django-graphql-jwt. You can add the below settings to settings.py file.
+
+```python
+MIDDLEWARE = [
+    'graphql_jwt.middleware.JSONWebTokenMiddleware',
+[
+```
+
+```python
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+```
+
+Add the Token mutation as belows
+
+```python
+class Mutation(users.schema.Mutation, repos.schema.Mutation, graphene.ObjectType):
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+```
+
+Run the server and fire the token mutation providing username and password.
+
+```graphql
+mutation {
+  tokenAuth (username:"user1", password:"Testing123") {
+    token
+  }
+}
+```
+This will create a token for us to use in our subsequent calls.
+
+```json
+{
+  "data": {
+    "tokenAuth": {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZXhwIjoxNTM4MTk0NTM3LCJvcmlnX2lhdCI6MTUzODE5NDIzN30.5JblR-0QS-WAKmO8t3aZgqu5emPTibNv7hep9wZKdXI"
+    }
+  }
+}
+
+```
+
+JWT library comes with inbuilt directive called *login_required*
+You can add this any of your Query resolver to prevent unauthenticated access.
+
+```python
+from graphql_jwt.decorators import login_required
+
+...
+
+class Query(graphene.ObjectType):
+    repos = graphene.List(RepoType)
+
+    @login_required
+    def resolve_repos(self, info, **kwargs):
+        return Repo.objects.all()
+```
+
+Now if you try to query repos from graphql, you will see this error
+
+```json
+{
+  "errors": [
+    {
+      "message": "You do not have permission to perform this action",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ],
+      "path": [
+        "repos"
+      ]
+    }
+  ],
+  "data": {
+    "repos": null
+  }
+}
+```
+
+Henceforth you need to pass token with every repos query. This token needs to be passed as header which the graphiql ui client does not support. Hence you can use either of these 2 ways 
+* curl command 
+
+```bash
+curl -X POST \
+-H "Content-Type: application/json;" \
+-H "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZXhwIjoxNTM4MTY1ODc1LCJvcmlnX2lhdCI6MTUzODE2NTU3NX0.HUKZeM7GvjPmBUWuoIjUJZFPgf0DQFS3Du4okSdr2I4" \
+-d '{"query": "{ repos { url } }"}' \
+http://localhost:8000/graphql/
+```
+
+Result obtained from running this command: 
+
+```
+{"data":{"repos":[{"url":"https://github.com/cloudmesh-community/boat"},{"url":"https://github.com/cloudmesh-community/book"},{"url":"https://github.com/cloudmesh-community/cm"},{"url":"https://github.com/cloudmesh-community/cm-burn"},{"url":"https://github.com/cloudmesh-community/vineet-test-1"},{"url":"https://github.com/cloudmesh-community/vineet-test"}]}}
+```
+
+Clearly as you can see the output is not well formatted and hence not the preferred way. 
+
+* Install graphql client like Insomnia or Altair
+Advantage of using these clients is that they are much user friendly and provide a well formatted json output.
+
+JWT tokens are bearer tokens which need to be passed in HTTP authorization header. JWT tokens are very safe against CSRF attacks and are trusted and verified since they are digitally signed.  
+
+Example available at : https://github.com/cloudmesh-community/fa18-516-21/tree/master/graphql-examples/cloudmeshrepo
 
 ## Pros and Cons of Using GraphQL
 ### Pros
@@ -603,5 +788,8 @@ With that being said, REST APIs still have it's own place and may prove better c
 
 * Official GraphQL documentation https://graphql.org/learn/
 * GraphQL python example https://www.howtographql.com/graphql-python/0-introduction/
+* Django https://www.djangoproject.com/
 * GraphQL mutation example https://www.howtographql.com/graphql-python/3-mutations/
 * GraphQL JWT authentication example https://www.howtographql.com/graphql-python/4-authentication/
+* GraphQL and Authentication https://medium.com/the-graphqlhub/graphql-and-authentication-b73aed34bbeb
+* JWT tokens https://stackoverflow.com/a/39914013
