@@ -16,7 +16,6 @@ Initially GraphQL was implemented in JavaScript. Today there are lots of impleme
 In GraphQL world, query is what we request to graphql server and the result will be obtained in exact same structure. It means we will know ahead of time what we're going to get as result, nothing less and nothing more.
 
 Here's how a simple graphQL query would look like
-
 ```graphql
 {
     person {
@@ -29,8 +28,7 @@ Here's how a simple graphQL query would look like
 }
 ```
 
-And this would fetch the below result
-
+Response
 ```json
 {
     "person": {
@@ -50,7 +48,7 @@ And this would fetch the below result
 
 But for this we need to define the types that are going to be honored by graphql service so that when the query comes in, it is validated to match the schema of these types.
 
-Types are defined as part of each graphql service, in graphql schema language which are programming language agnostic. Below is an example of a graphql type.
+Types are defined as part of each graphql service, in graphql schema language which are programming language agnostic. An example of a graphql type.
 
 ```graphql
 type Person {
@@ -63,7 +61,7 @@ type Person {
 Note that '!' here means that the field value cannot be null. [Person!]! means that the array cannot be null and also none of the items in the array can be null.
 
 ### Scalar Types
-Graphql supports the below scalar types:
+Graphql supports the following scalar types:
 * String: UTF8 characters
 * Int: 32 bit signed integer
 * Float: Double precision floating point value
@@ -84,7 +82,7 @@ enum FuelType {
 ### Interfaces
 Similar to any programming language, graphql type system also supports interfaces. When a type implements interface, it needs to have all the fields defined in that interface.
 
-As we can see in the below example, Vehicle is an interface which declares Id, Name and Wheels fields. This means that Motorcycle and Car which implement Vehicle, must have these fields. They may or may not have their own additional fields like Make in case of Motorcycle and Fuel in case of Car.
+As we can see in the following example, Vehicle is an interface which declares Id, Name and Wheels fields. This means that Motorcycle and Car which implement Vehicle, must have these fields. They may or may not have their own additional fields like Make in case of Motorcycle and Fuel in case of Car.
 
 ```graphql
 interface Vehicle {
@@ -115,7 +113,7 @@ As the name suggests, union types are union of two or more types. Here's how we 
 union VehicleType = Motorcycle | Car
 ```
 
-Now when we write a graphql query to fetch VehicleType information, we can ask some of the common fields and some of the specific fields conditionally. Below is an example of graphql query which is requesting for AllVehicleTypes with common fields like Id, Name and fields specific to either Motorcycle or Car.
+Now when we write a graphql query to fetch VehicleType information, we can ask some of the common fields and some of the specific fields conditionally. Check following example of graphql query which is requesting for AllVehicleTypes with common fields like Id, Name and fields specific to either Motorcycle or Car.
 
 ```graphql
 {
@@ -138,11 +136,11 @@ Now when we write a graphql query to fetch VehicleType information, we can ask s
 
 ## GraphQL Query
 
-App asks for data from server in form of GraphQL query. A GraphQL query can have different fields, arguments etc which is described below.
+App asks for data from server in form of GraphQL query. A GraphQL query can have different fields, arguments etc which is described as follow.
 
 ### Fields
 
-A very simple definition of GraphQL would be asking for speific fields on objects. Check below example
+A very simple definition of GraphQL would be asking for speific fields on objects. Check following example
 
 Query
 
@@ -166,7 +164,7 @@ Response
 }
 ```
 
-As we can see data format exactly looks like the query. This way client knows excatly what data it has to consume. In above example "name" fields returns data of type "String". Client can also ask for an object. For example
+As we can see data format exactly looks like the query. This way client knows excatly what data it has to consume. In previous example "name" fields returns data of type "String". Client can also ask for an object. For example
 
 Query
 ```graphql
@@ -399,7 +397,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-Now the project has been changed to (venv) so it means we are in virtual environment. Execute below commands
+Now the project has been changed to (venv) so it means we are in virtual environment. Execute following commands
 
 ```bash
 pip install django==2.0.2 graphene==2.0.1 graphene-django==2.0.0 django-filter==1.1.0 django-graphql-jwt==0.1.5
@@ -430,7 +428,7 @@ GRAPHENE = {
 
 Now django seperates project into apps. Here we will have one app for Users and one for Repos. Django provides support for SQLite so we will use that for demo.
 
-Go to root dir of project and execute below command
+Go to root dir of project and execute following command
 
 ```bash
 python manage.py startapp repos
@@ -446,7 +444,7 @@ class Repo(models.Model):
     description = models.TextField(blank=True)
 ```
 
-Now open cloudmeshrepo/settings.py and append below line into INSTALLED_APPS
+Now open cloudmeshrepo/settings.py and append following line into INSTALLED_APPS
 
 ```python
 INSTALLED_APPS = (
@@ -455,7 +453,7 @@ INSTALLED_APPS = (
 )
 ```
 
-Go to root folder and execute below commands. It will create table for new modeld
+Go to root folder and execute following commands. It will create table for new modeld
 
 ```bash
 python manage.py makemigrations
@@ -464,7 +462,7 @@ python manage.py migrate
 python manage.py shell
 ```
 
-Last command will open python shell. Execute below command inside that shell to create some data. Below example data we got from github's API https://api.github.com/users/cloudmesh-community/repos.
+Last command will open python shell. Execute following command inside that shell to create some data. following example data we got from github's API https://api.github.com/users/cloudmesh-community/repos.
 
 ```python
 from repos.models import Repo
@@ -475,7 +473,7 @@ Repo.objects.create(name="cm-burn",full_name="cloudmesh-community/cm-burn",url="
 exit()
 ```
 
-Now create repos/schema.py with below code. This will introduce custom type of Repo and query with resolver for repos.
+Now create repos/schema.py with following code. This will introduce custom type of Repo and query with resolver for repos.
 
 ```python
 import graphene
@@ -496,7 +494,7 @@ class Query(graphene.ObjectType):
         return Repo.objects.all()
 ```
 
-Create cloudmeshrepo/schema.py with below code. It just inherits query defind in repos app. This way we are able to isolate schema to their apps.
+Create cloudmeshrepo/schema.py with following code. It just inherits query defind in repos app. This way we are able to isolate schema to their apps.
 
 ```python
 import graphene
@@ -524,13 +522,13 @@ urlpatterns = [
 ]
 ```
 
-Start your server using below command
+Start your server using following command
 
 ```bash
 python manage.py runserver
 ```
 
-Now open http://localhost:8000/graphql URL in your broweser. You will see GraphiQL. In the left pane add below query
+Now open http://localhost:8000/graphql URL in your broweser. You will see GraphiQL. In the left pane add following query
 
 ```graphql
 {
@@ -543,7 +541,7 @@ Now open http://localhost:8000/graphql URL in your broweser. You will see Graphi
 }
 ```
 
-In the right pane you will see below output
+In the right pane you will see following output
 
 ```json
 {
@@ -579,7 +577,7 @@ In the right pane you will see below output
 ```
 
 ### Mutation example
-Similar to Query you can add mutation to create your own data. Add a Create class for new repo object which will inherit from graphene's Mutation class. This class will accept new repo properties as Arguments. Please see the below code snippet
+Similar to Query you can add mutation to create your own data. Add a Create class for new repo object which will inherit from graphene's Mutation class. This class will accept new repo properties as Arguments. Please see the following code snippet
 
 ```python
 class CreateRepo(graphene.Mutation):
@@ -608,7 +606,7 @@ class Mutation(graphene.ObjectType):
     create_repo = CreateRepo.Field()
 ```
 
-Now you can run the below mutation on graphiql to add a new repo
+Now you can run the following mutation on graphiql to add a new repo
 
 ```graphql
 mutation {
@@ -652,7 +650,7 @@ There a few ways of adding authentication to your graphql server
 
 This is a more secure and sophisticated way of authentication. Client has to provide username and password to mutate a token which has limited expiry time. Once token is generated, it needs to be provided with each subsequent graphql api calls which indicates graphql server of authenticated requests.
 
-To enable JWT authentication in your graphql server, you need to install django-graphql-jwt. You can add the below settings to settings.py file.
+To enable JWT authentication in your graphql server, you need to install django-graphql-jwt. You can add this settings to settings.py file.
 
 ```python
 MIDDLEWARE = [
@@ -667,7 +665,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 ```
 
-Add the Token mutation as belows
+Add the Token mutation
 
 ```python
 class Mutation(users.schema.Mutation, repos.schema.Mutation, graphene.ObjectType):
@@ -758,9 +756,152 @@ Clearly as you can see the output is not well formatted and hence not the prefer
 * Install graphql client like Insomnia or Altair
 Advantage of using these clients is that they are much user friendly and provide a well formatted json output.
 
-JWT tokens are bearer tokens which need to be passed in HTTP authorization header. JWT tokens are very safe against CSRF attacks and are trusted and verified since they are digitally signed.  
+JWT tokens are bearer tokens which need to be passed in HTTP authorization header. JWT tokens are very safe against CSRF attacks and are trusted and verified since they are digitally signed.
 
-Example available at : https://github.com/cloudmesh-community/fa18-516-21/tree/master/graphql-examples/cloudmeshrepo
+Examples available at : https://github.com/cloudmesh-community/fa18-516-21/tree/master/graphql-examples/
+
+### GitHub API v4
+
+GitHub has implemented API v4 using graphql which allows you to query or mutate data for which you have access. To access GitHub API v4 first we need to install GraphiQL (https://github.com/skevy/graphiql-app).
+
+For MacOS
+```bash
+brew cask install graphiql
+```
+
+* Now we need OAuth token to access GitHub API. You can generate OAuth token by following steps mentioned at https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
+* Open GraphiQL app and click edit headers at upper-right corner. Add new Header with key "Authorization" and value "Bearer *your token*"
+* Enter "https://api.github.com/graphql" in GraphQL Endpoint textbox
+* Keep method as "POST" only
+
+To test the changes add following query
+```graphql
+query {
+  viewer {
+    login
+    name
+  }
+}
+```
+
+Response
+```json
+{
+  "data": {
+    "viewer": {
+      "login": "*Your GitHub UserId*",
+      "name": "*Your Full Name*"
+    }
+  }
+}
+```
+
+To get your repos add following query
+```graphql
+query($number_of_repos:Int!) {
+  viewer {
+    name
+     repositories(last: $number_of_repos) {
+       nodes {
+         name
+       }
+     }
+   }
+}
+```
+
+Define variables
+```json
+{
+   "number_of_repos": 3
+}
+```
+
+Response
+```json
+{
+  "data": {
+    "viewer": {
+      "name": "*your name*",
+      "repositories": {
+        "nodes": [
+          {
+            "name": "*Repo 1*"
+          },
+          {
+            "name": "*Repo 2*"
+          },
+          {
+            "name": "*Repo 3*"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+To add a comment using mutation we need to get issue id 
+
+Query
+```graphql
+{
+  repository(owner:"MihirNS", name:"Temp_Repo") {
+    issue(number: 1) {
+      id
+    }
+  }
+}
+```
+
+Response
+```json
+{
+  "data": {
+    "repository": {
+      "issue": {
+        "id": "MDU6SXNzdWUzNjUxMDIwOTE="
+      }
+    }
+  }
+}
+```
+
+Now we can use this id as subjectId for mutation to add comment to an issue,
+
+Query
+```graphql
+mutation AddComment {
+  addComment(input:{subjectId:"MDU6SXNzdWUzNjUxMDIwOTE=",body:"This comment is done using GitHub API v4"}) {
+  	commentEdge {
+      node {
+        repository{
+          nameWithOwner
+        }
+        url
+      }
+    }
+  }
+}
+```
+
+Response
+```json
+{
+  "data": {
+    "addComment": {
+      "commentEdge": {
+        "node": {
+          "repository": {
+            "nameWithOwner": "MihirNS/Temp_Repo"
+          },
+          "url": "https://github.com/MihirNS/Temp_Repo/issues/1#issuecomment-425620312"
+        }
+      }
+    }
+  }
+}
+```
 
 ## Pros and Cons of Using GraphQL
 ### Pros
