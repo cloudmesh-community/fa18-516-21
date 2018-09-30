@@ -28,5 +28,5 @@
 
 * Update graphql.md draft to add GitHub GraphQL API v4 use
 * Created mutation example using GitHUb API
-* Formatting final draft
+* Formatting final graphql draft
 * Created references using bibtex and raised PR to merged with book
