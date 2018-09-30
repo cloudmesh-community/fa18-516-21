@@ -14,5 +14,7 @@ project:
   title: TBD
   url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-paper"
 other:
-  title: "Validate YAML script in Python"
-  url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/validate_yml.py"
+  - activity: "Validate YAML script in Python"
+    url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/validate_yml.py"
+  - activity: "Create example of using graphql with python"
+    url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/graphql-examples/cloudmeshrepo"
