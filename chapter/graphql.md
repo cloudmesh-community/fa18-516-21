@@ -7,7 +7,7 @@ GraphQL allows client to request data they need without thinking about API imple
 
 Unlike REST APIs which required loading data from multiple URLs, GraphQL can get all data the app needs in single request. GraphQL APIs are defined in terms of types and fields. Types will help GraphQL to ensure that client only asks for what's possible otherwise it provides clear and helpful errors. 
 
-Initially GraphQL was implemented in JavaScript. Today there are lots of implementations available of GraphQL in different languages. We will explore graphql-python implementation
+Initially GraphQL was implemented in JavaScript. Today there are lots of implementations available of GraphQL in different languages. We will explore graphql-python implementation. GraphQL official documentation is available at [@graphql-learn]
 
 
 ## GraphQL type system and schema
@@ -378,7 +378,7 @@ Response
 Because of use of types in GraphQL query we can know whether query is valid or not before executing it. It can be achieved using validator provided by GraphQL implementation. To use validator you need to write test cases and use validator to validate schema
 
 ## Django
-Django is a very popular full-blown python web framework which is fast and comes with a lot of boilerplate code. Django is matured and has a huge community support as against flask which is very new, still evolving and generally considered for only small applications. Django has inbuilt support for Object Relational Mapping which is based on Database Code-First approach. Please refer https://www.djangoproject.com/ for more Django information.
+Django is a very popular full-blown python web framework which is fast and comes with a lot of boilerplate code. Django is matured and has a huge community support as against flask which is very new, still evolving and generally considered for only small applications. Django has inbuilt support for Object Relational Mapping which is based on Database Code-First approach. Please refer [@www-djangoproject] for more Django information.
 
 ## GraphQL Implementations
 
@@ -758,7 +758,9 @@ Advantage of using these clients is that they are much user friendly and provide
 
 JWT tokens are bearer tokens which need to be passed in HTTP authorization header. JWT tokens are very safe against CSRF attacks and are trusted and verified since they are digitally signed.
 
-Examples available at : https://github.com/cloudmesh-community/fa18-516-21/tree/master/graphql-examples/
+Find more about JWT tockens at [@jwt-tockens] and graphql authentication at [@medium-graphql]
+
+Examples available at : https://github.com/cloudmesh-community/book/tree/master/examples/graphql-examples/ and [@www-howtographql]
 
 ### GitHub API v4
 
@@ -903,11 +905,14 @@ Response
 }
 ```
 
+Official documentation of Github API v4 is available at [@github-v4]
+
 ## Pros and Cons of Using GraphQL
 ### Pros
 * Unlike REST APIs, only the required data is fetched, nothing more nothing less, which minimizes the data transferred over network
 * Seperation of concern is achieved between client and server. Client requests data entities with fields needed for the UI in one query request while server knows about the data structure and how to resolve the data from its sources which could be database, web service, microservice, external APIs, etc.
 * Versioning is simpler than REST, since we only have to take care of it when we want to remove any of the fields. Even then we can first mark the field to be removed as deprecated. And later on, this field can be removed when not many clients are using it.
+
 ```graphql
 type Car {
     id: ID!
@@ -915,6 +920,7 @@ type Car {
     description: String @deprecated(reason: "Field is deprecated!")
 }
 ``` 
+
 * Graphql is gaining momentum as its community, support and enthusiasm is growing. Many graphql editors, IDEs and packages are getting added day by day. 
 ### Cons
 * Graphql query can get very complex. Client may not necessarily know how expensive the queries can be for server to go and gather the data. This can be overcome by limiting the query depth, recursion, etc.
@@ -924,14 +930,3 @@ type Car {
 ## Conclusion
 In general there are many reasons to have graphql in our software ecosystem. Beauty of it lies in the flexibility and extensiveness it provides and also fits well with the microservices architecture which many are moving towards. Already big players like Github, Pinterest, Intuit, Coursera, Shopify, etc. are using it.
 With that being said, REST APIs still have it's own place and may prove better choice in certain use cases. Both REST and graphql have some tradeoffs which need to be understood before being considered.
-
-## References 
-
-* Official GraphQL documentation https://graphql.org/learn/
-* GraphQL python example https://www.howtographql.com/graphql-python/0-introduction/
-* Django https://www.djangoproject.com/
-* GraphQL mutation example https://www.howtographql.com/graphql-python/3-mutations/
-* GraphQL JWT authentication example https://www.howtographql.com/graphql-python/4-authentication/
-* GraphQL and Authentication https://medium.com/the-graphqlhub/graphql-and-authentication-b73aed34bbeb
-* JWT tokens https://stackoverflow.com/a/39914013
-* GitHub API v4 https://developer.github.com/v4/
