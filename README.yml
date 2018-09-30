@@ -5,14 +5,14 @@ owner:
   hid: "fa18-516-21"
   community: "e516"
 section:
-  title: "Project Natick"
-  url: "https://github.com/cloudmesh-community/book/blob/master/chapters/cloud/datacenter.md"
+  - title: "Project Natick"
+    url: "https://github.com/cloudmesh-community/book/blob/master/chapters/cloud/datacenter.md"
 chapter:
-  title: "GraphQL"
-  url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/chapter/graphql.md"
+  - title: "GraphQL"
+    url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/chapter/graphql.md"
 project:
-  title: TBD
-  url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-paper"
+  - title: TBD
+    url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-paper"
 other:
   - activity: "Validate YAML script in Python"
     url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/validate_yml.py"
