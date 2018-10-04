@@ -30,3 +30,4 @@
 * Created mutation example using GitHUb API
 * Formatting final graphql draft
 * Created references using bibtex and raised PR to merged with book
+* Updated graphql.md file to fix review comments
