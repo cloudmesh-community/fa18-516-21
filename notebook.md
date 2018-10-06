@@ -31,3 +31,7 @@
 * Formatting final graphql draft
 * Created references using bibtex and raised PR to merged with book
 * Updated graphql.md file to fix review comments
+
+# Week Fri 10/05/18 - 10/11/18
+
+* Updated graphql.md file to add more info about _Variables_ and _Examples_ section
