@@ -35,3 +35,4 @@
 # Week Fri 10/05/18 - 10/11/18
 
 * Updated graphql.md file to add more info about _Variables_ and _Examples_ section
+* Fixed grammatical mistakes and typos in graphql.md
