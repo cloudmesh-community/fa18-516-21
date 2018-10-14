@@ -71,4 +71,4 @@ npm start
 
 It will open up and application where you will see title and data it got from python server.
 
-![](../project-paper/images/sample.png)
+<kbd>![](../project-paper/images/sample.png)</kbd>
