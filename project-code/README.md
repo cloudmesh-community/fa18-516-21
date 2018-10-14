@@ -69,6 +69,6 @@ start app using
 npm start
 ```
 
-It will open up and application where you will see title and data it got from python server.
+It will open up an application where you will see title and data it got from python server.
 
 <kbd>![](../project-paper/images/sample.png)</kbd>
