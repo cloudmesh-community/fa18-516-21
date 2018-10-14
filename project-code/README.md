@@ -6,7 +6,7 @@ This is project for Cloudmesh GUI using electronjs and backend using graphql-dja
 
 This app consists for two sub modules
 
-* app - A cross-platform electronJS app which will be distributed to users
+* app - A cross-platform ElectronJS app which will be distributed to users
 * server - The GraphQL server for app to get data. This server will run on cloud.
 
 ## Development
