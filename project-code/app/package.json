@@ -1,0 +1,40 @@
+{
+  "name": "cloudmesh-app",
+  "version": "1.0.0",
+  "description": "Cloudemesh v4 app",
+  "main": "main.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "electron ."
+  },
+  "repository": "https://github.com/cloudmesh-community/fa18-516-21/project-code/app",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "autoprefixer": "^9.1.5",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.0",
+    "electron": "^2.0.0",
+    "electron-builder": "^20.28.4",
+    "extract-loader": "^3.0.0",
+    "file-loader": "^2.0.0",
+    "node-sass": "^4.9.3",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "material-components-web": "^0.40.1"
+  }
+}
