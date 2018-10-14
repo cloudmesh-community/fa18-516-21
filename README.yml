@@ -11,7 +11,7 @@ chapter:
   - title: "GraphQL"
     url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/chapter/graphql.md"
 project:
-  - title: TBD
+  - title: "Cloudmesh App"
     url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-paper"
 other:
   - activity: "Validate YAML script in Python"
