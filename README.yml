@@ -13,7 +13,7 @@ paper:
     url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/chapter/graphql.md"
 project:
   - title: "Cloudmesh Graphql App"
-    keyword: CLoudmesh graphql
+    keyword: Cloudmesh graphql
     url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-paper"
 other:
   - activity: "Validate YAML script in Python"
