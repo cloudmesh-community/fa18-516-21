@@ -36,3 +36,10 @@
 
 * Updated graphql.md file to add more info about _Variables_ and _Examples_ section
 * Fixed grammatical mistakes and typos in graphql.md
+* Updated FAQ.md to explain validate yml script 
+
+# Week Fri 10/12/18 - 10/18/18
+
+* Created ElectronJS app for Cloudmesh GUI project
+* Integrated app with GraphQL server
+* Created README.md for project development setup
