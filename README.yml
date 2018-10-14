@@ -7,11 +7,13 @@ owner:
 section:
   - title: "Project Natick"
     url: "https://github.com/cloudmesh-community/book/blob/master/chapters/cloud/datacenter.md"
-chapter:
+paper:
   - title: "GraphQL"
+    keyword: graphql
     url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/chapter/graphql.md"
 project:
-  - title: "Cloudmesh App"
+  - title: "Cloudmesh Graphql App"
+    keyword: CLoudmesh graphql
     url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-paper"
 other:
   - activity: "Validate YAML script in Python"
