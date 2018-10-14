@@ -7,16 +7,11 @@
     "build": "webpack",
     "start": "electron ."
   },
-  "repository": "https://github.com/cloudmesh-community/fa18-516-21/project-code/app",
+  "repository": "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-code/app",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Cloudmesh"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Mihir Shanishchara",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
