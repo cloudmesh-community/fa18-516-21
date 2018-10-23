@@ -43,3 +43,7 @@
 * Created ElectronJS app for Cloudmesh GUI project
 * Integrated app with GraphQL server
 * Created README.md for project development setup
+
+# Week Fri 10/19/18 - 10/25/18
+
+* Debug about github outage and update piazza post
