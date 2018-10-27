@@ -11,7 +11,7 @@ section:
 paper:
   - title: "GraphQL"
     keyword: graphql
-    url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/chapter/graphql.md"
+    url: "https://github.com/cloudmesh-community/book/blob/master/chapters/msg/graphql.md"
     group: fa18-516-21 fa18-516-02
 project:
   - title: "Cloudmesh Graphql App"
