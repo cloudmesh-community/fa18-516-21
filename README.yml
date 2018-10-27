@@ -8,6 +8,8 @@ owner:
 section:
   - title: "Project Natick"
     url: "https://github.com/cloudmesh-community/book/blob/master/chapters/cloud/datacenter.md"
+  - title: "YAML file validation"
+    url: "https://github.com/cloudmesh-community/book/blob/master/chapters/faq.md#how-to-check-if-a-yaml-file-is-valid"
 paper:
   - title: "GraphQL"
     keyword: graphql
@@ -21,8 +23,8 @@ project:
 other:
   - activity: "Validate YAML script in Python"
     keyword: YAML YML Validate
-    url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/validate_yml.py"
+    url: "https://github.com/cloudmesh-community/book/blob/master/examples/yaml-validation/validate_yml.py"
   - activity: "Create example of using graphql with python"
     keyword: Graphene Python GraphQL Django
-    url: "https://github.com/cloudmesh-community/fa18-516-21/tree/master/graphql-examples/cloudmeshrepo"
+    url: "https://github.com/cloudmesh-community/book/tree/master/examples/graphql/cloudmeshrepo"
     group: fa18-516-21 fa18-516-02
