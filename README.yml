@@ -4,6 +4,7 @@ owner:
   lastname: "Shanishchara"
   hid: "fa18-516-21"
   community: "e516"
+  semester: "fa18"
 section:
   - title: "Project Natick"
     url: "https://github.com/cloudmesh-community/book/blob/master/chapters/cloud/datacenter.md"
