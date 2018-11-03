@@ -37,9 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'graphene_django',
     'repos',
+    'graphene_django',
 ]
+
+DATABASES = {
+    'default': {'ENGINE': 'django.db.backends.dummy'}
+}
+
+SESSION_ENGINE = 'repos.sessions'
+SESSION_SERIALIZER = 'repos.sessions.BSONSerializer'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,11 +82,15 @@ WSGI_APPLICATION = 'cloudmeshrepo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+
+MONGODB_DATABASES = {
+    "default": {
+        "name": 'cm4',
+        "host": 'ds151393.mlab.com:51393',
+        "password": 'cm4Us6r',
+        "username": 'cm4-user',
+        "tz_aware": True, # if you using timezones in django (USE_TZ = True)
+    },
 }
 
 
