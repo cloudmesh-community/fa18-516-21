@@ -1,0 +1,18 @@
+{{#if outlined}}
+  <div class="mdc-text-field mdc-text-field--outlined">
+    <input type="{{type}}" id="{{id}}" class="mdc-text-field__input" style="width: {{width}}">
+    <label for="{{id}}" class="mdc-floating-label" value="{{value}}">{{label}}</label>
+    <div class="mdc-notched-outline">
+      <svg>
+        <path class="mdc-notched-outline__path"/>
+      </svg>
+    </div>
+    <div class="mdc-notched-outline__idle"></div>
+  </div>
+{{else}}
+  <div class="mdc-text-field">
+    <input type="{{type}}" id="{{id}}" class="mdc-text-field__input" style="width: {{width}}">
+    <label class="mdc-floating-label" for="{{id}}" value="{{value}}">{{label}}</label>
+    <div class="mdc-line-ripple"></div>
+  </div>
+{{/if}}

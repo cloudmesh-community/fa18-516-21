@@ -2,13 +2,16 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-import {MDCTopAppBar} from '@material/top-app-bar/index';
+import Router from "./router/applicationRouter";
+import dispatcher from "./util/dispatcher";
 
 // Instantiation
-const topAppBarElement = document.querySelector('.mdc-top-app-bar');
-const topAppBar = new MDCTopAppBar(topAppBarElement);
+let router = new Router();
 
-var http = new XMLHttpRequest();
+dispatcher.on("navigate", href => router.navigate(href));
+
+router.navigate("login");
+/*var http = new XMLHttpRequest();
 var url = 'http://localhost:8000/graphql/';
 var params = JSON.stringify({"query":"{ repos{ name, url }}"});
 http.open('POST', url, true);
@@ -21,5 +24,5 @@ http.onreadystatechange = function() {//Call a function when the state changes.
         document.getElementById("test").innerHTML = http.responseText;
     }
 }
-http.send(params);
+http.send(params);*/
 
