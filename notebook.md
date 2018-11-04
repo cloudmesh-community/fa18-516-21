@@ -47,3 +47,11 @@
 # Week Fri 10/19/18 - 10/25/18
 
 * Debug about github outage and update piazza post
+
+# Week Fri 10/26/18 - 11/01/18
+
+* No worked on anything
+
+# Week 11/02/18 - 11/08/18
+
+* Implemented login page and dashboard for Cloudmesh App.
