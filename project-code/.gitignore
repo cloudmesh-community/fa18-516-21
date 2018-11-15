@@ -5,6 +5,7 @@ __pycache__/
 bin/
 share/
 pyvenv.cfg
+pip-selfcheck.json
 
 # Distribution / packaging
 .Python
@@ -39,3 +40,6 @@ db.sqlite3
 
 ### Node JS ###
 node_modules
+
+### VSCode ###
+.jshintrc
