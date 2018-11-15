@@ -18,36 +18,15 @@ Below steps needs to be performed to setup development environment
 To setup server execute following commands after cloning repository
 
 ```bash
-cd project-code/server
-python3 -m venv venv
-source venv/bin/activate
-pip3 install django==2.0.2 graphene==2.0.1 graphene-django==2.0.0 django-filter==1.1.0 django-graphql-jwt==0.1.5
-python manage.py migrate
-python manage.py runserver
+cd project-code
+python3 -m venv cloudmesh-graphql-server
+cd cloudmesh-graphql-server
+source bin/activate
+pip install -r requirements.txt
+python app.py
 ```
 
-To put some data in server execute following commands
-
-```bash
-python manage.py shell
-```
-
-It will open python shell, execute following commands in python shell
-
-```python
-from repos.models import Repo
-Repo.objects.create(name="boat",full_name="cloudmesh-community/boat",url="https://github.com/cloudmesh-community/boat",description="S.T.A.R. boat")
-Repo.objects.create(name="book",full_name="cloudmesh-community/book",url="https://github.com/cloudmesh-community/book",description="Gregor von Laszewski")
-Repo.objects.create(name="cm",full_name="cloudmesh-community/cm",url="https://github.com/cloudmesh-community/cm",description="Cloudmesh v4")
-Repo.objects.create(name="cm-burn",full_name="cloudmesh-community/cm-burn",url="https://github.com/cloudmesh-community/cm-burn",description="Burns many SD cards so we can build a Raspberry PI cluster")
-exit()
-```
-
-Then start server again
-
-```bash
-python manage.py runserver
-```
+To seed more data, add it in database.py, call `init_db()` from main and then run app again
 
 ### Setup App
 
@@ -61,7 +40,7 @@ npm run build
 
 For development purpose app assumes that server is running on following URL
 
-* http://localhost:8000/graphql/
+* http://localhost:5000/graphql/
 
 start app using
 

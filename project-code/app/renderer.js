@@ -12,7 +12,7 @@ dispatcher.on("navigate", href => router.navigate(href));
 
 router.navigate("login");
 /*var http = new XMLHttpRequest();
-var url = 'http://localhost:8000/graphql/';
+var url = 'http://localhost:5000/graphql/';
 var params = JSON.stringify({"query":"{ repos{ name, url }}"});
 http.open('POST', url, true);
 
