@@ -16,7 +16,7 @@ class Azure(MongoengineObjectType):
 
 class Query(graphene.ObjectType):
     node = Node.Field()
-    all_awss = MongoengineConnectionField(AWS)
-    all_azures = MongoengineConnectionField(Azure)
+    allAwss = MongoengineConnectionField(AWS)
+    allAzures = MongoengineConnectionField(Azure)
 
 schema = graphene.Schema(query=Query, types=[AWS, Azure])

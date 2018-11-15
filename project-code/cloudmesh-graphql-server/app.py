@@ -9,7 +9,7 @@ app.debug = True
 
 default_query = '''
 {
-    all_awss {
+    allAwss {
         edges {
             node {
                 host,
