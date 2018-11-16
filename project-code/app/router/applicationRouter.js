@@ -1,12 +1,14 @@
 import Login from "../smart-views/login";
 import App from "../smart-views/app";
+import VMs from "../smart-views/vms";
 
 class ApplicationRouter {
     constructor () {
         this.routes = {
             "login": this.login,
-            "app": this.app
-        }
+            "app": this.app,
+            "vms": this.vms,
+        };
         this.contentEl = ".drawer-main-content";
     }
 
@@ -20,6 +22,10 @@ class ApplicationRouter {
 
     app() {
         new App().setElement("#cloudmesh-app").render();
+    }
+
+    vms() {
+        new VMs().setElement("#drawer-main-content-body").render();
     }
 }
 

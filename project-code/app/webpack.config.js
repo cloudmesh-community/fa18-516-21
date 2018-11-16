@@ -10,6 +10,9 @@ module.exports = [{
   node: {
     fs: 'empty'
   },
+  devServer: {
+        port: 9000
+  },
   module: {
     rules: [
       {
