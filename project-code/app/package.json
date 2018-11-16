@@ -19,7 +19,7 @@
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.0",
-    "electron": "^2.0.0",
+    "electron": "^3.0.9",
     "electron-builder": "^20.28.4",
     "extract-loader": "^3.0.0",
     "file-loader": "^2.0.0",

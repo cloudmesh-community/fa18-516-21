@@ -1,17 +1,17 @@
 import $ from 'jQuery';
 
-class Api {
-    constructor() {
-        this.baseUrl = "http://localhost:5000/graphql";
+export default class Api {
+    static baseUrl() {
+        return "http://localhost:5000/graphql";
     }
 
-    Get(params) {
-        return $.getJSON(this.baseUrl, params);
+    static get(params) {
+        return $.getJSON(Api.baseUrl(), params);
     }
 
-    Post(data) {
+    static post(data) {
         return $.ajax({
-            url: this.baseUrl,
+            url: Api.baseUrl(),
             type: 'POST',
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
@@ -19,5 +19,3 @@ class Api {
         });
     }
 }
-
-export default Api;

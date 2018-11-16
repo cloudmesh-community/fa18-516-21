@@ -1,9 +1,8 @@
 import Backbone from "backbone";
 import template from "../templates/textbox.hbs";
 import {MDCTextField} from '@material/textfield';
-import { throws } from "assert";
 
-class TextBox extends Backbone.View {
+export default class TextBox extends Backbone.View {
     constructor(options) {
         super();
         this.options = options;
@@ -21,5 +20,3 @@ class TextBox extends Backbone.View {
         const textField = new MDCTextField(this.$el.find('.mdc-text-field')[0]);
     }
 }
-
-export default TextBox;

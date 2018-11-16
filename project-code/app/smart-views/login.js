@@ -4,7 +4,7 @@ import TextBox from "../dumb-views/textbox";
 import Button from "../dumb-views/button";
 import template from "../templates/login.hbs";
 
-class Login extends Backbone.View {
+export default class Login extends Backbone.View {
     constructor() {
         super();
         this.userNameBox = new TextBox({
@@ -40,5 +40,3 @@ class Login extends Backbone.View {
         dispatcher.trigger("navigate", "app");
     }
 }
-
-export default Login;

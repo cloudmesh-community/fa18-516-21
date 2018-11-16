@@ -5,7 +5,7 @@ import {MDCList} from "@material/list";
 import dispatcher from "../util/dispatcher";
 import template from "../templates/app.hbs";
 
-class App extends Backbone.View {
+export default class App extends Backbone.View {
     constructor() {
         super();
     }
@@ -22,5 +22,3 @@ class App extends Backbone.View {
         });
     }
 }
-
-export default App;

@@ -2,7 +2,7 @@ import Backbone from "backbone";
 import dispatcher from "../util/dispatcher";
 import template from "../templates/button.hbs";
 
-class Button extends Backbone.View {
+export default class Button extends Backbone.View {
     constructor(options) {
         super();
         this.options = options;
@@ -23,5 +23,3 @@ class Button extends Backbone.View {
         dispatcher.trigger(e.currentTarget.id + "Click");
     }
 }
-
-export default Button;
