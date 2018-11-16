@@ -55,3 +55,14 @@
 # Week 11/02/18 - 11/08/18
 
 * Implemented login page and dashboard for Cloudmesh App.
+
+# Week 11/09/18 - 11/15/18
+
+* Implement routing for client app
+* Explore integration of django with mongodb
+
+# Week 11/16/18 - 11/22/18
+
+* Use faker to generate fake data to store in mongodb
+* Update flask APIs to fetch data
+* Change client app to show data in card layout
