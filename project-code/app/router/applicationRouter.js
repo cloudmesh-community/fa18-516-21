@@ -2,12 +2,12 @@ import Login from "../smart-views/login";
 import App from "../smart-views/app";
 import VMs from "../smart-views/vms";
 
-class ApplicationRouter {
+export default class ApplicationRouter {
     constructor () {
         this.routes = {
             "login": this.login,
             "app": this.app,
-            "vms": this.vms,
+            "selectvm": this.vms,
         };
         this.contentEl = ".drawer-main-content";
     }
@@ -28,5 +28,3 @@ class ApplicationRouter {
         new VMs().setElement("#drawer-main-content-body").render();
     }
 }
-
-export default ApplicationRouter;

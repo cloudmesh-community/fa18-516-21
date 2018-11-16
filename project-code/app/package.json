@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack && webpack-dev-server --inline --hot",
-    "start": "electron ."
+    "start": "webpack && electron ."
   },
   "repository": "https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-code/app",
   "keywords": [
