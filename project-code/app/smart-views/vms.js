@@ -12,11 +12,20 @@ export default class VMs extends Backbone.View {
     static vmClause(vmkind) {
         switch (vmkind) {
             case "aws":
-                return "allAwss";
+                return {
+                    clause: "allAwss",
+                    title: "AWS"
+                };
             case "azure":
-                return "allAzures";
+                return {
+                    clause: "allAzures",
+                    title: "Azure"
+                };
             default:
-            return "allAwss";
+            return {
+                clause: "allAwss",
+                title: "AWS"
+            };
         }
     }
 
@@ -28,11 +37,11 @@ export default class VMs extends Backbone.View {
             e.preventDefault();
 
             let vm = VMs.vmClause($(this).data('vmkind'));
-            let vmQuery = { "query" :"{ " + vm + 
+            let vmQuery = { "query" :"{ " + vm.clause + 
                     " { edges { node { host, name, region, publicIps, privateIps, image, state} } } }"};
             
             Api.post(vmQuery).then((res) => {
-                parent.html(vmTemplate({edges: res.data[vm].edges}));
+                parent.html(vmTemplate({title: vm.title, edges: res.data[vm.clause].edges}));
             });
         });
     }
