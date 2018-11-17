@@ -9,7 +9,6 @@ export default class ApplicationRouter {
             "app": this.app,
             "selectvm": this.vms,
         };
-        this.contentEl = ".drawer-main-content";
     }
 
     navigate(route) {
@@ -22,9 +21,11 @@ export default class ApplicationRouter {
 
     app() {
         new App().setElement("#cloudmesh-app").render();
+        document.getElementById("title").innerHTML = "Dashboard";
     }
 
     vms() {
-        new VMs().setElement("#drawer-main-content-body").render();
+        new VMs().setElement(".drawer-main-content-body").render();
+        document.getElementById("title").innerHTML = "VM List"
     }
 }
