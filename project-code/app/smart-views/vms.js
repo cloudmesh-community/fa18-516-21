@@ -1,12 +1,19 @@
 import Backbone from "backbone";
-import vmTemplate from "../templates/vms.hbs";
-import selectTemplate from "../templates/selectvm.hbs";
+import Tabs from "../dumb-views/tabs";
+import Card from "../dumb-views/card";
+import template from "../templates/vms.hbs";
 import Api from "../util/api";
 import $ from "jquery";
+import dispatcher from "../util/dispatcher";
 
 export default class VMs extends Backbone.View {
     constructor() {
         super();
+        this.tabsView = new Tabs({
+            triggerName: 'vmTabSelected',
+            tabs: ['AWS', 'Azure']
+        });
+        dispatcher.on('vmTabSelected', this.tabSelected, this);
     }
 
     static vmClause(vmkind) {
@@ -43,10 +50,10 @@ export default class VMs extends Backbone.View {
             });
             frame.$el.html(vmTemplate({title: vm.title, edges: res.data[vm.clause].edges}));
 
-            $('.mdc-button').on('click', function(eb) {
+            $('.icon-button').unbind('click').on('click', function(eb) {
                 let action = $(this).data('action');
                 let newState, vmMutation;
-                
+                /* TODO: this is business logic, UI can't decide new state. It must be server. UI can just send action */
                 if (vmkind === "aws") {
                     if (action === "stop") {
                         newState = "stopped";
@@ -75,13 +82,29 @@ export default class VMs extends Backbone.View {
     }
 
     render() {
-        let parent = this;
+        /*let parent = this;
         parent.$el.html(selectTemplate());
 
         $('.mdc-card').on("click", function(e) {
             e.preventDefault();
             
             parent.reload(parent, this, e);
+        });*/
+        this.$el.html(template());
+        this.tabsView.setElement("#vmTabs").render();
+        this.tabSelected(null, 'AWS');
+    }
+
+    tabSelected(e, name) {
+        let vm = VMs.vmClause(name);
+        let vmQuery = { "query" :"{ " + vm.clause + " { edges { node { host, name, region, publicIps, privateIps, image, state} } } }"};
+        Api.post(vmQuery).then((res) => {
+            res.data[vm.clause].edges.forEach(e => {
+                e.node.isRunning = e.node.state.toLowerCase() === "running";
+                e.node.isStopped = e.node.state.toLowerCase() === "stopped";
+                e.node.isSuspended = e.node.state.toLowerCase() !== "running" && e.node.state.toLowerCase() !== "stopped";
+            });
+            dispatcher.trigger("showCards", res.data[vm.clause].edges);
         });
     }
 }

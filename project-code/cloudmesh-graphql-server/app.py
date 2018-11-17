@@ -1,5 +1,4 @@
 # flask_graphene_mongo/app.py
-from database import init_db
 from flask import Flask
 from flask_cors import CORS
 from flask_graphql import GraphQLView

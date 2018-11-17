@@ -7,6 +7,10 @@
 @import "@material/typography/mdc-typography";
 @import "@material/button/mdc-button";
 @import "@material/card/mdc-card";
+@import "@material/tab-bar/mdc-tab-bar";
+@import "@material/tab-scroller/mdc-tab-scroller";
+@import "@material/tab-indicator/mdc-tab-indicator";
+@import "@material/tab/mdc-tab";
 
 body{
     margin: 0
@@ -125,4 +129,12 @@ body{
     .mdc-button {
         margin: 5px;
     }
+}
+
+.content {
+    display: none;
+}
+  
+.content--active {
+    display: block;
 }
