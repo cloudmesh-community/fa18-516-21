@@ -129,6 +129,15 @@ body{
     .mdc-button {
         margin: 5px;
     }
+
+    .mdc-card__action--icon {
+        padding: 4px;
+    }
+
+    .mdc-typography--headline6 {
+        font-size: 1.15vw;
+        font-weight: 600;
+    }
 }
 
 .content {
