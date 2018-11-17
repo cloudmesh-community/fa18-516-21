@@ -33,27 +33,48 @@ class Query(graphene.ObjectType):
 class UpdateAws(graphene.Mutation):
     class Arguments:
         host = graphene.String()
-        state = graphene.String()
+        action = graphene.String()
+        value = graphene.String()
 
     aws = graphene.Field(AWS)
 
-    def mutate(self, info, host, state):
-        print(host)
+    def mutate(self, info, host, action, value):
+        if action == "stop":
+            action = "state"
+            value = "stopped"
+        elif action == "shutdown":
+            action = "state"
+            value = "terminated"
+        elif not action == "favorite":
+            action = "state"
+            value = "running"
+
         aws = AwsModel.objects.get(host=host)
-        aws.state = state
+        aws[action] = value
         aws.save()
         return UpdateAws(aws=aws)
 
 class UpdateAzure(graphene.Mutation):
     class Arguments:
         host = graphene.String()
-        state = graphene.String()
+        action = graphene.String()
+        value = graphene.String()
 
     azure = graphene.Field(Azure)
 
-    def mutate(self, info, host, state):
+    def mutate(self, info, host, action, value):
+        if action == "stop":
+            action = "state"
+            value = "Stopped"
+        elif action == "shutdown":
+            action = "state"
+            value = "Deallocated"
+        elif not action == "favorite":
+            action = "state"
+            value = "Running"
+
         azure = AzureModel.objects.get(host=host)
-        azure.state = state
+        azure[action] = value
         azure.save()
         return UpdateAzure(azure=azure)
 

@@ -57,37 +57,14 @@ export default class VMs extends Backbone.View {
     }
 
     updateCard(card, node) {
-         /* TODO: this is business logic, UI can't decide new state. It must be server. UI can just send action */
-         /* For each query need to pass variable instead of creating string like below */
-        let newState;
-        if (card.type === "aws") {
-            if (card.action === "stop") {
-                newState = "stopped";
-            } else if (card.action === "shutdown") {
-                newState = "terminated";
-            } else {
-                newState = "running";
-            }
-        } else if (card.type === "azure") {
-            if (card.action === "stop") {
-                newState = "Stopped";
-            } else if (card.action === "shutdown") {
-                newState = "Deallocated";
-            } else {
-                newState = "Running";
-            }
-        }
-        this.mutate(card.type, node, "state", newState);
-    }
-
-    mutate(type, node, key, value) {
-        let updateClause = type === "aws" ? "updateAws" : "updateAzure";
+        let value = true;
+        let updateClause = card.type === "aws" ? "updateAws" : "updateAzure";
         let vmMutation = { "query": "mutation { " + updateClause + 
-            "(host:\"" + node.host + "\", " + key + ":\"" + value + 
-            "\") { " + type + " { " + key + " } } }" };
-
+            "(host:\"" + node.host + "\", action:\"" + card.action + 
+            "\", value:\"" + value + "\") { " + card.type + " { " + (["start","stop","shutdown"].includes(card.action) ? "state" : card.action) + " } } }" };
+        
         Api.post(vmMutation).then((res) => {
-            node.state = res.data[updateClause][type].state;
+            node.state = res.data[updateClause][card.type].state;
             node.isRunning = node.state.toLowerCase() === "running";
             node.isStopped = node.state.toLowerCase() === "stopped";
             node.isSuspended = node.state.toLowerCase() !== "running" && node.state.toLowerCase() !== "stopped";
