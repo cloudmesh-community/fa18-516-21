@@ -59,7 +59,7 @@ export default class VMs extends Backbone.View {
     updateCard(card, node) {
          /* TODO: this is business logic, UI can't decide new state. It must be server. UI can just send action */
          /* For each query need to pass variable instead of creating string like below */
-        let newState, vmMutation;
+        let newState;
         if (card.type === "aws") {
             if (card.action === "stop") {
                 newState = "stopped";
@@ -68,7 +68,6 @@ export default class VMs extends Backbone.View {
             } else {
                 newState = "running";
             }
-            vmMutation = { "query": "mutation { updateAws(host:\"" + node.host + "\", state:\"" + newState + "\") { aws { state } } }" };
         } else if (card.type === "azure") {
             if (card.action === "stop") {
                 newState = "Stopped";
@@ -77,10 +76,18 @@ export default class VMs extends Backbone.View {
             } else {
                 newState = "Running";
             }
-            vmMutation = { "query": "mutation { updateAzure(host:\"" + node.host + "\", state:\"" + newState + "\") { azure { state } } }" };
         }
+        this.mutate(card.type, node, "state", newState);
+    }
+
+    mutate(type, node, key, value) {
+        let updateClause = type === "aws" ? "updateAws" : "updateAzure";
+        let vmMutation = { "query": "mutation { " + updateClause + 
+            "(host:\"" + node.host + "\", " + key + ":\"" + value + 
+            "\") { " + type + " { " + key + " } } }" };
+
         Api.post(vmMutation).then((res) => {
-            node.state = res.data[card.type === "aws" ? "updateAws" : "updateAzure"][card.type].state;
+            node.state = res.data[updateClause][type].state;
             node.isRunning = node.state.toLowerCase() === "running";
             node.isStopped = node.state.toLowerCase() === "stopped";
             node.isSuspended = node.state.toLowerCase() !== "running" && node.state.toLowerCase() !== "stopped";
