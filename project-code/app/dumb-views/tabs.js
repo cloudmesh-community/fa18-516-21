@@ -27,10 +27,12 @@ export default class Tabs extends Backbone.View {
             document.querySelector('.content--active').classList.remove('content--active');
             contentEls[event.detail.index].classList.add('content--active');
         });
+        this.selectedTab = "aws";
     }
 
     tabSelected(e) {
-        dispatcher.trigger(this.options.triggerName, $(e.currentTarget).data('name'));
+        this.selectedTab = $(e.currentTarget).data('name');
+        dispatcher.trigger(this.options.triggerName, this.selectedTab);
     }
 
     showCards(edges) {
@@ -38,7 +40,7 @@ export default class Tabs extends Backbone.View {
             edges: edges
         }));
         _.each(edges, (edge) => {
-            new Card({edge: edge}).setElement("[id='"+ edge.node.host +"']").render();
+            new Card({edge: edge, type: this.selectedTab}).setElement("[id='"+ edge.node.host +"']").render();
         });
     }
 }
