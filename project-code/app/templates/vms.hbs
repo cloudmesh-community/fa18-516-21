@@ -22,10 +22,25 @@
                     <li>{{this}}</li>
                     {{/each}}
                 </ul>
+                <h4>State: {{node.state}}</h4>
             </div>
             <div class="mdc-card__actions">
                 <div class="mdc-card__action-buttons">
-                    <button class="mdc-button mdc-card__action mdc-card__action--button mdc-ripple-surface mdc-ripple-radius-bounded">Stop</button>
+                    {{#if node.isRunning}}
+                        <button data-action="stop" data-host="{{node.host}}" class="mdc-button mdc-card__action mdc-card__action--button mdc-ripple-surface mdc-ripple-radius-bounded mdc-button--outlined">
+                            Stop
+                        </button>
+                        <button data-action="stop" data-host="{{node.host}}" class="mdc-button mdc-card__action mdc-card__action--button mdc-ripple-surface mdc-ripple-radius-bounded mdc-button--outlined">
+                            Force Stop
+                        </button>
+                        <button data-action="shutdown" data-host="{{node.host}}" class="mdc-button mdc-card__action mdc-card__action--button mdc-ripple-surface mdc-ripple-radius-bounded mdc-button--outlined">
+                            Shutdown
+                        </button>
+                    {{/if}}
+
+                    {{#if node.isStopped}}
+                        <button data-action="start" data-host="{{node.host}}" class="mdc-button mdc-card__action mdc-card__action--button mdc-ripple-surface mdc-ripple-radius-bounded mdc-button--outlined">Start</button>
+                    {{/if}}
                 </div>
                 <div class="mdc-card__action-icons">
                     <button class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded" title="Add to favorites">

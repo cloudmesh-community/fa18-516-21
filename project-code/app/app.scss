@@ -116,3 +116,13 @@ body{
 .card-body-padding {
     padding: 0 1em;
 }
+
+.mdc-card {
+    .mdc-card__action-buttons {
+        display: block;
+    }
+
+    .mdc-button {
+        margin: 5px;
+    }
+}
