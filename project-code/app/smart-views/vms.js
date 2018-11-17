@@ -59,9 +59,11 @@ export default class VMs extends Backbone.View {
     updateCard(card, node) {
         let value = true;
         let updateClause = card.type === "aws" ? "updateAws" : "updateAzure";
+        let action = ["start","stop","shutdown"].includes(card.action) ? "state" : card.action;
         let vmMutation = { "query": "mutation { " + updateClause + 
-            "(host:\"" + node.host + "\", action:\"" + card.action + 
-            "\", value:\"" + value + "\") { " + card.type + " { " + (["start","stop","shutdown"].includes(card.action) ? "state" : card.action) + " } } }" };
+            "(host:\"" + node.host + "\", action:\"" + action + 
+            "\", actionDetail:\"" + card.action + "\", value:\"" + value + 
+            "\") { " + card.type + " { " + action + " } } }" };
         
         Api.post(vmMutation).then((res) => {
             node.state = res.data[updateClause][card.type].state;

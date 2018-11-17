@@ -34,20 +34,19 @@ class UpdateAws(graphene.Mutation):
     class Arguments:
         host = graphene.String()
         action = graphene.String()
+        actionDetail = graphene.String()
         value = graphene.String()
 
     aws = graphene.Field(AWS)
 
-    def mutate(self, info, host, action, value):
-        if action == "stop":
-            action = "state"
-            value = "stopped"
-        elif action == "shutdown":
-            action = "state"
-            value = "terminated"
-        elif not action == "favorite":
-            action = "state"
-            value = "running"
+    def mutate(self, info, host, action, actionDetail, value):
+        if action == "state":
+            if actionDetail == "stop":
+                value = "stopped"
+            elif actionDetail == "shutdown":
+                value = "terminated"
+            else:
+                value = "running"
 
         aws = AwsModel.objects.get(host=host)
         aws[action] = value
@@ -58,20 +57,19 @@ class UpdateAzure(graphene.Mutation):
     class Arguments:
         host = graphene.String()
         action = graphene.String()
+        actionDetail = graphene.String()
         value = graphene.String()
 
     azure = graphene.Field(Azure)
 
-    def mutate(self, info, host, action, value):
-        if action == "stop":
-            action = "state"
-            value = "Stopped"
-        elif action == "shutdown":
-            action = "state"
-            value = "Deallocated"
-        elif not action == "favorite":
-            action = "state"
-            value = "Running"
+    def mutate(self, info, host, action, actionDetail, value):
+        if action == "state":
+            if actionDetail == "stop":
+                value = "Stopped"
+            elif actionDetail == "shutdown":
+                value = "Deallocated"
+            else:
+                value = "Running"
 
         azure = AzureModel.objects.get(host=host)
         azure[action] = value
