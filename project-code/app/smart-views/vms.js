@@ -40,10 +40,10 @@ export default class VMs extends Backbone.View {
     render() {
         this.$el.html(template());
         this.tabsView.setElement("#vmTabs").render();
-        this.tabSelected(null, "aws");
+        this.tabSelected("aws");
     }
 
-    tabSelected(e, name) {
+    tabSelected(name) {
         let vm = VMs.vmClause(name);
         let vmQuery = { "query" :"{ " + vm.clause + " { edges { node { host, name, region, publicIps, privateIps, image, state} } } }"};
         Api.post(vmQuery).then((res) => {
