@@ -3,6 +3,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_graphql import GraphQLView
 from schema import schema
+from database import init_aws, init_azure
 
 app = Flask(__name__)
 CORS(app)

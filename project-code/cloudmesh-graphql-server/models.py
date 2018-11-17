@@ -1,6 +1,5 @@
 from mongoengine import Document
-from mongoengine.fields import StringField
-from mongoengine.fields import ListField
+from mongoengine.fields import StringField,ListField,DictField
 
 class AWS(Document):
     meta = {'collection': 'aws'}
@@ -11,6 +10,7 @@ class AWS(Document):
     private_ips = ListField(StringField())
     public_ips = ListField(StringField())
     state = StringField()
+    extra = DictField()
 
 class Azure(Document):
     meta = {'collection': 'azure'}
@@ -21,3 +21,4 @@ class Azure(Document):
     private_ips = ListField(StringField())
     public_ips = ListField(StringField())
     state = StringField()
+    extra = DictField()
