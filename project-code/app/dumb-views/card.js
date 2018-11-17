@@ -9,7 +9,7 @@ export default class Card extends Backbone.View {
         this.options = options;
         this.events = {
             'click .icon-button' : 'buttonClicked'
-        }
+        };
         dispatcher.on("reRenderCard"+options.edge.node.host, this.reRenderCard, this);
     }
 

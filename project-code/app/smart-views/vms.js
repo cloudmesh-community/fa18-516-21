@@ -68,7 +68,7 @@ export default class VMs extends Backbone.View {
             } else {
                 newState = "running";
             }
-            vmMutation = { "query": "mutation { updateAws(host:'" + node.host + "', state:'" + newState + "') { aws { state } } }" };
+            vmMutation = { "query": "mutation { updateAws(host:\"" + node.host + "\", state:\"" + newState + "\") { aws { state } } }" };
         } else if (card.type === "azure") {
             if (card.action === "stop") {
                 newState = "Stopped";
@@ -77,10 +77,15 @@ export default class VMs extends Backbone.View {
             } else {
                 newState = "Running";
             }
-            vmMutation = { "query": "mutation { updateAzure(host:'" + node.host + "', state:'" + newState + "') { azure { state } } }" };
+            vmMutation = { "query": "mutation { updateAzure(host:\"" + node.host + "\", state:\"" + newState + "\") { azure { state } } }" };
         }
         Api.post(vmMutation).then((res) => {
-            dispatcher.trigger("reRenderCard" + node.host, Object.assign(node, res.data[card.type].state));
+            node.state = res.data[card.type === "aws" ? "updateAws" : "updateAzure"][card.type].state;
+            node.isRunning = node.state.toLowerCase() === "running";
+            node.isStopped = node.state.toLowerCase() === "stopped";
+            node.isSuspended = node.state.toLowerCase() !== "running" && node.state.toLowerCase() !== "stopped";
+            
+            dispatcher.trigger("reRenderCard" + node.host, Object.assign({}, node));
         });
     }
 }
