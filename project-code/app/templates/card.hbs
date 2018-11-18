@@ -25,10 +25,18 @@
             {{/ifop}}
         </div>
         <div class="mdc-card__action-icons">
-            <button class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded"
+            {{#ifop node.isFavorite '===' "true"}}
+            <button data-action="isFavorite" data-value="false" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded"
+                title="Add to favorites">
+                <i class="material-icons mdc-icon-button__icon">favorite</i>
+            </button>
+            {{/ifop}}
+            {{#ifop node.isFavorite '===' "false"}}
+            <button data-action="isFavorite" data-value="true" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded"
                 title="Add to favorites">
                 <i class="material-icons mdc-icon-button__icon">favorite_border</i>
             </button>
+            {{/ifop}}
             <button class="icon-button mdc-icon-button material-icons mdc-card__action mdc-card__action--icon mdc-ripple-upgraded--unbounded mdc-ripple-upgraded"
                 title="More options">
                 more_vert

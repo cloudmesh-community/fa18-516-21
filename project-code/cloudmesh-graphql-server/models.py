@@ -11,6 +11,7 @@ class AWS(Document):
     public_ips = ListField(StringField())
     state = StringField()
     extra = DictField()
+    isFavorite = StringField()
 
 class Azure(Document):
     meta = {'collection': 'azure'}
@@ -22,3 +23,4 @@ class Azure(Document):
     public_ips = ListField(StringField())
     state = StringField()
     extra = DictField()
+    isFavorite = StringField()

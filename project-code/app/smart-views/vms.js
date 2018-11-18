@@ -55,7 +55,7 @@ export default class VMs extends Backbone.View {
 
         let that = this;
         let vm = VMs.vmClause(name);
-        let vmQuery = "{ " + vm.clause + " (first:40) { edges { node { host, name, region, publicIps, privateIps, image, state} }, pageInfo { endCursor, hasNextPage } } }";
+        let vmQuery = "{ " + vm.clause + " (first:40) { edges { node { host, name, region, publicIps, privateIps, image, state, isFavorite} }, pageInfo { endCursor, hasNextPage } } }";
         Api.post(vmQuery).then((res) => {
             this.pageInfo[name] = res.data[vm.clause].pageInfo;
             this.edges[name].push(...res.data[vm.clause].edges);
@@ -72,7 +72,7 @@ export default class VMs extends Backbone.View {
     }
 
     updateCard(card, node) {
-        let value = true;
+        let value = card.value !== undefined ? card.value : "false";
         let updateClause = card.type === "aws" ? "updateAws" : "updateAzure";
         let action = ["start","stop","shutdown"].includes(card.action) ? "state" : card.action;
         let vmMutation = "mutation($cardAction:String!,$value:String!,$host:String!,$action:String!) { " + updateClause + 
@@ -97,7 +97,7 @@ export default class VMs extends Backbone.View {
             "after: \"" + this.pageInfo[name].endCursor + "\"":
             "";
         let vmQuery = "{ " + vm.clause + " (first: 40 " + afterClause + ")" +
-            " { edges { cursor, node { host, name, region, publicIps, privateIps, image, state} }, " +
+            " { edges { cursor, node { host, name, region, publicIps, privateIps, image, state, isFavorite} }, " +
             " pageInfo { endCursor, hasNextPage } } }";
 
         Api.post(vmQuery).then((res) => {
