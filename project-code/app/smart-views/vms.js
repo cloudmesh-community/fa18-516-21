@@ -47,11 +47,6 @@ export default class VMs extends Backbone.View {
         let vm = VMs.vmClause(name);
         let vmQuery = { "query" :"{ " + vm.clause + " { edges { node { host, name, region, publicIps, privateIps, image, state} } } }"};
         Api.post(vmQuery).then((res) => {
-            res.data[vm.clause].edges.forEach(e => {
-                e.node.isRunning = e.node.state.toLowerCase() === "running";
-                e.node.isStopped = e.node.state.toLowerCase() === "stopped";
-                e.node.isSuspended = e.node.state.toLowerCase() !== "running" && e.node.state.toLowerCase() !== "stopped";
-            });
             dispatcher.trigger("showCards", res.data[vm.clause].edges);
         });
     }
@@ -66,12 +61,7 @@ export default class VMs extends Backbone.View {
             "\") { " + card.type + " { " + action + " } } }" };
         
         Api.post(vmMutation).then((res) => {
-            node.state = res.data[updateClause][card.type].state;
-            node.isRunning = node.state.toLowerCase() === "running";
-            node.isStopped = node.state.toLowerCase() === "stopped";
-            node.isSuspended = node.state.toLowerCase() !== "running" && node.state.toLowerCase() !== "stopped";
-            
-            dispatcher.trigger("reRenderCard" + node.host, Object.assign({}, node));
+            dispatcher.trigger("reRenderCard" + node.host, Object.assign(node, res.data[card.type === "aws" ? "updateAws" : "updateAzure"][card.type]));
         });
     }
 }

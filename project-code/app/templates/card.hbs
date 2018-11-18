@@ -6,7 +6,7 @@
     </div>
     <div class="mdc-card__actions">
         <div class="mdc-card__action-buttons">
-            {{#if node.isRunning}}
+            {{#ifop node.state '===' "running"}}
             <button data-action="stop" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
                 <i class="material-icons mdc-icon-button__icon">stop</i>
             </button>
@@ -14,15 +14,15 @@
                 <i class="material-icons mdc-icon-button__icon">cloud_off</i>
             </button>
             <button data-action="shutdown" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
-                <i class="material-icons mdc-icon-button__icon">settings_power</i>
+                <i class="material-icons mdc-icon-button__icon">power_settings_new</i>
             </button>
-            {{/if}}
+            {{/ifop}}
 
-            {{#if node.isStopped}}
+            {{#ifop node.state '===' "stopped"}}
             <button data-action="start" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
                 <i class="material-icons mdc-icon-button__icon">play_circle_outline</i>
             </button>
-            {{/if}}
+            {{/ifop}}
         </div>
         <div class="mdc-card__action-icons">
             <button class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded"

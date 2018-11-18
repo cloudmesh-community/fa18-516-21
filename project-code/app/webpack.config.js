@@ -52,7 +52,10 @@ module.exports = [{
       },
       { 
         test: /\.hbs$/, 
-        loader: "handlebars-loader" 
+        loader: "handlebars-loader",
+        query: {
+          helperDirs: __dirname + '/util/helpers'
+        }
       }
     ]
   }
