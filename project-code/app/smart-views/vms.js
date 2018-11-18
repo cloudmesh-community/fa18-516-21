@@ -45,7 +45,7 @@ export default class VMs extends Backbone.View {
 
     tabSelected(name) {
         let vm = VMs.vmClause(name);
-        let vmQuery = { "query" :"{ " + vm.clause + " { edges { node { host, name, region, publicIps, privateIps, image, state} } } }"};
+        let vmQuery = "{ " + vm.clause + " { edges { node { host, name, region, publicIps, privateIps, image, state} } } }";
         Api.post(vmQuery).then((res) => {
             dispatcher.trigger("showCards", res.data[vm.clause].edges);
         });
@@ -55,12 +55,15 @@ export default class VMs extends Backbone.View {
         let value = true;
         let updateClause = card.type === "aws" ? "updateAws" : "updateAzure";
         let action = ["start","stop","shutdown"].includes(card.action) ? "state" : card.action;
-        let vmMutation = { "query": "mutation { " + updateClause + 
-            "(host:\"" + node.host + "\", action:\"" + action + 
-            "\", actionDetail:\"" + card.action + "\", value:\"" + value + 
-            "\") { " + card.type + " { " + action + " } } }" };
-        
-        Api.post(vmMutation).then((res) => {
+        let vmMutation = "mutation($cardAction:String!,$value:String!,$host:String!,$action:String!) { " + updateClause + 
+            "(host:$host, action:$action, actionDetail: $cardAction, value: $value) { " + card.type + " { " + action + " } } }";
+        var variables = {};
+        variables.cardAction = card.action;
+        variables.action = action;
+        variables.host = node.host;
+        variables.value = value;
+
+        Api.post(vmMutation, variables).then((res) => {
             dispatcher.trigger("reRenderCard" + node.host, Object.assign(node, res.data[card.type === "aws" ? "updateAws" : "updateAzure"][card.type]));
         });
     }

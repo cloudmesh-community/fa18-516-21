@@ -9,11 +9,11 @@ export default class Api {
         return $.getJSON(Api.baseUrl(), params);
     }
 
-    static post(data) {
+    static post(data, variables) {
         return $.ajax({
             url: Api.baseUrl(),
             type: 'POST',
-            data: JSON.stringify(data),
+            data: JSON.stringify({query: data, variables: variables}),
             contentType: "application/json; charset=utf-8",
 	        dataType: "json"
         });
