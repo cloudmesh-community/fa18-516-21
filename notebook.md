@@ -50,7 +50,7 @@
 
 # Week Fri 10/26/18 - 11/01/18
 
-* No worked on anything
+* Not worked on anything
 
 # Week 11/02/18 - 11/08/18
 
@@ -66,3 +66,6 @@
 * Use faker to generate fake data to store in mongodb
 * Update flask APIs to fetch data
 * Change client app to show data in card layout
+* Update mutation APIs to use variables
+* Add generic function to update single card(vm) data on UI
+* Cosmetic changes for app
