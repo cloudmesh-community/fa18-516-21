@@ -7,32 +7,38 @@
     <div class="mdc-card__actions">
         <div class="mdc-card__action-buttons">
             {{#ifop node.state '===' "running"}}
-            <button data-action="stop" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
+            <button data-action="stop" title="Stop" data-type="{{type}}" 
+                class="icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
                 <i class="material-icons mdc-icon-button__icon">stop</i>
             </button>
-            <button data-action="stop" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
+            <button data-action="stop" title="Force Stop" data-type="{{type}}" 
+                class="icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
                 <i class="material-icons mdc-icon-button__icon">cloud_off</i>
             </button>
-            <button data-action="shutdown" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
+            <button data-action="shutdown" title="Shutdown" data-type="{{type}}" 
+                class="icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
                 <i class="material-icons mdc-icon-button__icon">power_settings_new</i>
             </button>
             {{/ifop}}
 
             {{#ifop node.state '===' "stopped"}}
-            <button data-action="start" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
+            <button data-action="start" title="Start" data-type="{{type}}" 
+                class="icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
                 <i class="material-icons mdc-icon-button__icon">play_circle_outline</i>
             </button>
             {{/ifop}}
         </div>
         <div class="mdc-card__action-icons">
             {{#ifop node.isFavorite '===' "true"}}
-            <button data-action="isFavorite" data-value="false" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded"
+            <button data-action="isFavorite" data-value="false" data-type="{{type}}" 
+                class="icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded"
                 title="Add to favorites">
                 <i class="material-icons mdc-icon-button__icon">favorite</i>
             </button>
             {{/ifop}}
             {{#ifop node.isFavorite '===' "false"}}
-            <button data-action="isFavorite" data-value="true" data-type="{{type}}" class="icon-button mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded"
+            <button data-action="isFavorite" data-value="true" data-type="{{type}}" 
+                class="icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded"
                 title="Add to favorites">
                 <i class="material-icons mdc-icon-button__icon">favorite_border</i>
             </button>
