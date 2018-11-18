@@ -50,7 +50,7 @@
 
 # Week Fri 10/26/18 - 11/01/18
 
-* No worked on anything
+* Not worked on anything
 
 # Week 11/02/18 - 11/08/18
 
