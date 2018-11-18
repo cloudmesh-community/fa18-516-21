@@ -55,7 +55,7 @@ export default class VMs extends Backbone.View {
 
         let that = this;
         let vm = VMs.vmClause(name);
-        let vmQuery = "{ " + vm.clause + " (first:10) { edges { node { host, name, region, publicIps, privateIps, image, state} }, pageInfo { endCursor, hasNextPage } } }";
+        let vmQuery = "{ " + vm.clause + " (first:40) { edges { node { host, name, region, publicIps, privateIps, image, state} }, pageInfo { endCursor, hasNextPage } } }";
         Api.post(vmQuery).then((res) => {
             this.pageInfo[name] = res.data[vm.clause].pageInfo;
             this.edges[name].push(...res.data[vm.clause].edges);
@@ -63,7 +63,9 @@ export default class VMs extends Backbone.View {
         });
 
         $(".drawer-main-content").off('scroll').on('scroll', function(e) {
-            if(!that.isLoading && (($(window).scrollTop() + $(window).height()) >= $(document).height())) {
+            let numerator = $(".drawer-main-content").scrollTop();
+            let denominator = $(".drawer-main-content-body").height() + 80 - $(".drawer-main-content").height();
+            if(!that.isLoading && ((numerator / denominator) >= 1)) {
                 that.loadVMs(name, true);
             }
         });
@@ -94,7 +96,7 @@ export default class VMs extends Backbone.View {
         let afterClause = nextPage && this.pageInfo[name] && this.pageInfo[name].hasNextPage ?
             "after: \"" + this.pageInfo[name].endCursor + "\"":
             "";
-        let vmQuery = "{ " + vm.clause + " (first: 10 " + afterClause + ")" +
+        let vmQuery = "{ " + vm.clause + " (first: 40 " + afterClause + ")" +
             " { edges { cursor, node { host, name, region, publicIps, privateIps, image, state} }, " +
             " pageInfo { endCursor, hasNextPage } } }";
 
