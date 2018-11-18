@@ -45,20 +45,27 @@ export default class VMs extends Backbone.View {
         this.$el.html(template());
         this.tabsView.setElement("#vmTabs").render();
         this.tabSelected("aws");
-        let that = this;
-
-        $(".drawer-main-content").on('scroll', function(e) {
-            if(!that.isLoading && (($(window).scrollTop() + $(window).height()) == $(document).height())) {
-                that.loadVMs(that.selectedTab, true);
-            }
-        });
     }
 
     tabSelected(name) {
+        if (this.edges[name] && this.edges[name].length > 0) {
+            dispatcher.trigger("showCards", this.edges[name]);
+            return;
+        }
+
+        let that = this;
         let vm = VMs.vmClause(name);
-        let vmQuery = "{ " + vm.clause + " { edges { node { host, name, region, publicIps, privateIps, image, state} } } }";
+        let vmQuery = "{ " + vm.clause + " (first:10) { edges { node { host, name, region, publicIps, privateIps, image, state} }, pageInfo { endCursor, hasNextPage } } }";
         Api.post(vmQuery).then((res) => {
-            dispatcher.trigger("showCards", res.data[vm.clause].edges);
+            this.pageInfo[name] = res.data[vm.clause].pageInfo;
+            this.edges[name].push(...res.data[vm.clause].edges);
+            dispatcher.trigger("showCards", this.edges[name]);
+        });
+
+        $(".drawer-main-content").off('scroll').on('scroll', function(e) {
+            if(!that.isLoading && (($(window).scrollTop() + $(window).height()) >= $(document).height())) {
+                that.loadVMs(name, true);
+            }
         });
     }
 
@@ -80,24 +87,18 @@ export default class VMs extends Backbone.View {
     }
 
     loadVMs(name, nextPage=false) {
-        this.isLoading = true;
         let vm = VMs.vmClause(name);
-        
         if (nextPage && !this.pageInfo[name].hasNextPage) return;
         
+        this.isLoading = true;
         let afterClause = nextPage && this.pageInfo[name] && this.pageInfo[name].hasNextPage ?
             "after: \"" + this.pageInfo[name].endCursor + "\"":
             "";
-        let vmQuery = { "query" :"{ " + vm.clause + " (first: 10 " + afterClause + ")" +
+        let vmQuery = "{ " + vm.clause + " (first: 10 " + afterClause + ")" +
             " { edges { cursor, node { host, name, region, publicIps, privateIps, image, state} }, " +
-            " pageInfo { endCursor, hasNextPage } } }"};
+            " pageInfo { endCursor, hasNextPage } } }";
 
         Api.post(vmQuery).then((res) => {
-            res.data[vm.clause].edges.forEach(e => {
-                e.node.isRunning = e.node.state.toLowerCase() === "running";
-                e.node.isStopped = e.node.state.toLowerCase() === "stopped";
-                e.node.isSuspended = e.node.state.toLowerCase() !== "running" && e.node.state.toLowerCase() !== "stopped";
-            });
             this.pageInfo[name] = res.data[vm.clause].pageInfo;
             this.edges[name].push(...res.data[vm.clause].edges);
             dispatcher.trigger("showCards", this.edges[name]);
