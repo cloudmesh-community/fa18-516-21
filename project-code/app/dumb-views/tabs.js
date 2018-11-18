@@ -13,7 +13,7 @@ export default class Tabs extends Backbone.View {
         this.options = options;
         this.events = {
             'click button.mdc-tab': 'tabSelected'
-        }
+        };
         dispatcher.on('showCards', this.showCards, this);
     }
 

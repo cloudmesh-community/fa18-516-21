@@ -15,6 +15,10 @@ export default class VMs extends Backbone.View {
         });
         dispatcher.on("vmTabSelected", this.tabSelected, this);
         dispatcher.on("cardAction", this.updateCard, this);
+        this.pageInfo = {};
+        this.selectedTab = "aws";
+        this.isLoading = false;
+        this.edges = {aws:[],azure:[]};
     }
 
     static vmClause(vmkind) {
@@ -41,19 +45,18 @@ export default class VMs extends Backbone.View {
         this.$el.html(template());
         this.tabsView.setElement("#vmTabs").render();
         this.tabSelected("aws");
+        let that = this;
+
+        $(".drawer-main-content").on('scroll', function(e) {
+            if(!that.isLoading && (($(window).scrollTop() + $(window).height()) == $(document).height())) {
+                that.loadVMs(that.selectedTab, true);
+            }
+        });
     }
 
     tabSelected(name) {
-        let vm = VMs.vmClause(name);
-        let vmQuery = { "query" :"{ " + vm.clause + " { edges { node { host, name, region, publicIps, privateIps, image, state} } } }"};
-        Api.post(vmQuery).then((res) => {
-            res.data[vm.clause].edges.forEach(e => {
-                e.node.isRunning = e.node.state.toLowerCase() === "running";
-                e.node.isStopped = e.node.state.toLowerCase() === "stopped";
-                e.node.isSuspended = e.node.state.toLowerCase() !== "running" && e.node.state.toLowerCase() !== "stopped";
-            });
-            dispatcher.trigger("showCards", res.data[vm.clause].edges);
-        });
+        this.selectedTab = name;
+        this.loadVMs(name);
     }
 
     updateCard(card, node) {
@@ -72,6 +75,32 @@ export default class VMs extends Backbone.View {
             node.isSuspended = node.state.toLowerCase() !== "running" && node.state.toLowerCase() !== "stopped";
             
             dispatcher.trigger("reRenderCard" + node.host, Object.assign({}, node));
+        });
+    }
+
+    loadVMs(name, nextPage=false) {
+        this.isLoading = true;
+        let vm = VMs.vmClause(name);
+        
+        if (nextPage && !this.pageInfo[name].hasNextPage) return;
+        
+        let afterClause = nextPage && this.pageInfo[name] && this.pageInfo[name].hasNextPage ?
+            "after: \"" + this.pageInfo[name].endCursor + "\"":
+            "";
+        let vmQuery = { "query" :"{ " + vm.clause + " (first: 10 " + afterClause + ")" +
+            " { edges { cursor, node { host, name, region, publicIps, privateIps, image, state} }, " +
+            " pageInfo { endCursor, hasNextPage } } }"};
+
+        Api.post(vmQuery).then((res) => {
+            res.data[vm.clause].edges.forEach(e => {
+                e.node.isRunning = e.node.state.toLowerCase() === "running";
+                e.node.isStopped = e.node.state.toLowerCase() === "stopped";
+                e.node.isSuspended = e.node.state.toLowerCase() !== "running" && e.node.state.toLowerCase() !== "stopped";
+            });
+            this.pageInfo[name] = res.data[vm.clause].pageInfo;
+            this.edges[name].push(...res.data[vm.clause].edges);
+            dispatcher.trigger("showCards", this.edges[name]);
+            this.isLoading = false;
         });
     }
 }
