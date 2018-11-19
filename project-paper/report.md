@@ -43,9 +43,45 @@ is transfered from server to client.
 
 ## Design 
 
+Cloudmesh App is divided in two parts
+
+* Client App
+
+Client app can be distributed to users. This app will provide a simple 
+interface to user using which user can execute all commands provided by cm4.
+Client app will communicate with GraphQL server and based on input from user
+server will execute commands.
+
+* GraphQL server
+
+This GraphQL server will be running on one cloud 
+instance to which all client apps can connect.
+
 ## Architecture
 
+For client app ElectronJS[@electronjs] is used. Using ElectronJS we can build 
+cross platform desktop apps with JavaScript, HTML and CSS. ElectronJS combines
+power of native apps with beautiful web interface.
+
+To implement web interface BackboneJS[@backbonejs] is used. BackboneJS provides
+an MVC structure with models,collections and views. For code reusability views
+have been divided in to two folders
+
+* Smart Views: Knows how to communicate with server but doesn't know about 
+representation 
+
+* Dumb View: Doesn't know how to communicate with server but knows how to render
+data
+
+All the utitlity functions are available under utils directory. 
+
+For HTML templates HandlebarsJS[@handlebarsjs] is used. Handlebars provides set 
+of functions which lets us build generic HTML templates easily. It also provides
+a way to extend helper function and create custom helpers to use in templates.
+
 ## Dataset
+
+Used faker to generate fake data for testing.
 
 ## Implementation
 
@@ -68,8 +104,9 @@ is transfered from server to client.
 | Use Faker to generate mock VMs                     | Mihir  |
 | GraphQL mutation to change VM state                | Vineet |
 | Add Tabs for various VM types (AWS, Azure, etc.)   | Mihir  |
-| Add variables for GraphQL Apis                     | Mihir  |
+| Add variables for GraphQL APIs                     | Mihir  |
 | Make mutations generic                             | Vineet |
 | Make custom helper classes for Handlebar templates | Mihir  |
 | Lazy loading (infinite scrolling on UI) of VMs     | Vineet |
 | Mutation for set/unset Favorite VM                 | Vineet |
+| Added code to show VM details                      | Mihir  |
