@@ -5,6 +5,8 @@ import template from "../templates/vms.hbs";
 import Api from "../util/api";
 import $ from "jquery";
 import dispatcher from "../util/dispatcher";
+import Dialog from "../dumb-views/dialog";
+import detailsTemplate from "../templates/vmdetails.hbs";
 
 export default class VMs extends Backbone.View {
     constructor() {
@@ -15,6 +17,7 @@ export default class VMs extends Backbone.View {
         });
         dispatcher.on("vmTabSelected", this.tabSelected, this);
         dispatcher.on("cardAction", this.updateCard, this);
+        dispatcher.on("showDetails", this.showDetails, this);
         this.pageInfo = {};
         this.selectedTab = "aws";
         this.isLoading = false;
@@ -55,7 +58,7 @@ export default class VMs extends Backbone.View {
 
         let that = this;
         let vm = VMs.vmClause(name);
-        let vmQuery = "{ " + vm.clause + " (first:40) { edges { node { host, name, region, publicIps, privateIps, image, state, isFavorite} }, pageInfo { endCursor, hasNextPage } } }";
+        let vmQuery = "{ " + vm.clause + " (first:40) { edges { node { host, name, region, image, state, isFavorite} }, pageInfo { endCursor, hasNextPage } } }";
         Api.post(vmQuery).then((res) => {
             this.pageInfo[name] = res.data[vm.clause].pageInfo;
             this.edges[name].push(...res.data[vm.clause].edges);
@@ -72,7 +75,7 @@ export default class VMs extends Backbone.View {
     }
 
     updateCard(card, node) {
-        let value = card.value !== undefined ? card.value : "false";
+        let value = card.value ? card.value : "false";
         let updateClause = card.type === "aws" ? "updateAws" : "updateAzure";
         let action = ["start","stop","shutdown"].includes(card.action) ? "state" : card.action;
         let vmMutation = "mutation($cardAction:String!,$value:String!,$host:String!,$action:String!) { " + updateClause + 
@@ -105,6 +108,17 @@ export default class VMs extends Backbone.View {
             this.edges[name].push(...res.data[vm.clause].edges);
             dispatcher.trigger("showCards", this.edges[name]);
             this.isLoading = false;
+        });
+    }
+
+    showDetails(card, node) {
+        let vm = VMs.vmClause(card.type);
+        let getDetails = "query($host:String!) {" + vm.clause + "(host:$host) { edges { node { host, name, region, publicIps, privateIps, image, state, isFavorite, extra } } } }";
+        var variables = {};
+        variables.host = node.host;
+
+        Api.post(getDetails, variables).then((res) => {
+            new Dialog({title: "VM Details", data: res.data[vm.clause].edges[0].node, detailsTemplate: detailsTemplate}).setElement("#showDialog").render();
         });
     }
 }

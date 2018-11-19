@@ -25,7 +25,7 @@ export default class Card extends Backbone.View {
         cardObj.type = $(e.currentTarget).data('type');
         cardObj.action = $(e.currentTarget).data('action');
         cardObj.value = $(e.currentTarget).data('value');
-        dispatcher.trigger("cardAction", cardObj, this.options.edge.node);
+        dispatcher.trigger($(e.currentTarget).data('trigger'), cardObj, this.options.edge.node);
     }
 
     reRenderCard(data) {
