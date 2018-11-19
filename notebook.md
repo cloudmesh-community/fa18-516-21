@@ -69,3 +69,5 @@
 * Update mutation APIs to use variables
 * Add generic function to update single card(vm) data on UI
 * Cosmetic changes for app
+* Implement VM details dialog for client app
+* Update report
