@@ -29,17 +29,14 @@ user interface and pass it to server which will perform corresponding
 appropriate actions. Our second aim with this project is to demonstrate client 
 server communication through GraphQL Apis.
 
-[GraphQL]{.index} is a data query language developed by Facebook. GraphQL 
-allows clients to request they need while specifing attributes in the query 
-without thinking much about the API implementation. It simplifies access and 
-reduces traffic as the application has control over the data it needs and its 
-format. Hence GraphQL reduces the network traffic as only the necessary data 
-is transfered from server to client.
-
+More info for GraphQL is available as a chapter in cloud computing handbook.
 
 ## Requirements
 
-
+* A cross platform desktop application which can be reditributed to users
+* Client App should show data from MongoDB using GraphQL APIs
+* Client App should send user action to server and mutate date
+* Client and server should be able to handle more than 10000 VMs 
 
 ## Design 
 
@@ -59,31 +56,72 @@ instance to which all client apps can connect.
 
 ## Architecture
 
-For client app ElectronJS[@electronjs] is used. Using ElectronJS we can build 
-cross platform desktop apps with JavaScript, HTML and CSS. ElectronJS combines
-power of native apps with beautiful web interface.
+Client App is designed using following technologies
 
-To implement web interface BackboneJS[@backbonejs] is used. BackboneJS provides
-an MVC structure with models,collections and views. For code reusability views
-have been divided in to two folders
+* ElectronJS[@electronjs] : Using ElectronJS we can build cross platform 
+  desktop apps with JavaScript, HTML and CSS. ElectronJS combines
+  power of native apps with beautiful web interface.
 
-* Smart Views: Knows how to communicate with server but doesn't know about 
-representation 
+* BackboneJS[@backbonejs] : BackboneJS provides an MVC structure with 
+  models,collections and views. For code reusability views have been 
+  divided in to two categories
+  * Smart View: Knows how to communicate with server but doesn't know about 
+    representation 
+  * Dumb View: Doesn't know how to communicate with server but knows how to 
+    render data
 
-* Dumb View: Doesn't know how to communicate with server but knows how to render
-data
+* HandlebarsJS[@handlebarsjs] : Handlebars provides set of functions which 
+  lets us build generic HTML templates easily. It also provides a way to 
+  extend helper function and create custom helpers to use in templates.
+  * All custom helper functions for tempaltes are defined at utils/helpers 
+    space
 
-All the utitlity functions are available under utils directory. 
+* jQuery[@jquery] : jQuery provides set of functions which are very useful
+  for DOM manipulation
 
-For HTML templates HandlebarsJS[@handlebarsjs] is used. Handlebars provides set 
-of functions which lets us build generic HTML templates easily. It also provides
-a way to extend helper function and create custom helpers to use in templates.
+* Material UI[@materialui] : Material UI is open source desing spec which is 
+  mainly developed by Google. We are using web component implementation of
+  Material UI.
+
+* Webpack[@webpack] : Webpack is a module bundler and also it provides a way
+  to specify loaders for different file types. For example handlebars loader
+  is used to load and compile handlebar template before creating bundle.
 
 ## Dataset
 
 Used faker to generate fake data for testing.
 
 ## Implementation
+
+* Checkout project-code and execute following commands
+
+```bash
+cd app
+npm install
+```
+
+After all UI dependencies are installed execute following commands
+
+```bash
+cd ..
+python3 -m venv cloudmesh-graphql-server
+cd cloudmesh-graphql-server
+source bin/activate
+pip install -r requirements.txt
+```
+
+Now to start graphql server execute following command
+
+```bash
+python app.py
+```
+
+Once the server is started open another terminal and go to app directory. 
+To start client app execute
+
+```bash
+npm start
+```
 
 ## Benchmark
 
@@ -109,4 +147,6 @@ Used faker to generate fake data for testing.
 | Make custom helper classes for Handlebar templates | Mihir  |
 | Lazy loading (infinite scrolling on UI) of VMs     | Vineet |
 | Mutation for set/unset Favorite VM                 | Vineet |
-| Added code to show VM details                      | Mihir  |
+| Add code to show VM details                        | Mihir  |
+| Add code to mimic DB update from cloudmesh data    | Mihir  |
+| Add code to show notifications                     | Mihir  |
