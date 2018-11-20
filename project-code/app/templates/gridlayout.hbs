@@ -1,7 +1,26 @@
 <div class="mdc-layout-grid">
+    {{#ifop view '===' "table"}}
+    <div class="divTable">
+        <div class="divTableBody">
+            <div class="divTableRow">
+                <div class="divTableCell"><strong>Hostname</strong></div>
+                <div class="divTableCell"><strong>Region</strong></div>
+                <div class="divTableCell"><strong>Image</strong></div>
+                <div class="divTableCell"><strong>Action</strong></div>
+                <div class="divTableCell"><strong>Favorite</strong></div>
+                <div class="divTableCell"><strong>Details</strong></div>
+            </div>
+            {{#each edges}}
+            <div class="divTableRow" id="{{node.host}}"></div>
+            {{/each}}
+        </div>
+    </div>
+    {{/ifop}}
+    {{#ifop view '===' "card"}}
     <div class="mdc-layout-grid__inner">
         {{#each edges}}
         <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-3" id="{{node.host}}"></div>
         {{/each}}
     </div>
+    {{/ifop}}
 </div>

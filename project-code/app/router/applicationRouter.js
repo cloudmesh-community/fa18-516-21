@@ -26,6 +26,6 @@ export default class ApplicationRouter {
 
     vms() {
         new VMs().setElement(".drawer-main-content-body").render();
-        document.getElementById("title").innerHTML = "VM List"
+        document.getElementById("title").innerHTML = "VM List";
     }
 }

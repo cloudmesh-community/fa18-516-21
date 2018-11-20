@@ -151,3 +151,28 @@ body{
 .material-icons {
     color: #6200ee !important;
 }
+
+
+.divTable{
+    display: table;
+    border: 1px solid #999999;
+    
+    .divTableBody {
+        display: table-row-group;
+
+        .divTableRow {
+            display: table-row;
+
+            .divTableCell, .divTableHead {
+                border: 1px solid #999999;
+                display: table-cell;
+                padding: 4px;
+                vertical-align: middle;
+                
+                .mdc-card__action--icon { 
+                    padding: 8px;
+                }
+            }
+        }
+    }
+}

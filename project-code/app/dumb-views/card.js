@@ -16,7 +16,8 @@ export default class Card extends Backbone.View {
     render() {
         this.$el.html(template({
             node: this.options.edge.node,
-            type: this.options.type
+            type: this.options.type,
+            view: this.options.view
         }));
     }
 

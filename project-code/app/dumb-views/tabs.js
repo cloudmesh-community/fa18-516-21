@@ -12,9 +12,11 @@ export default class Tabs extends Backbone.View {
         super();
         this.options = options;
         this.events = {
-            'click button.mdc-tab': 'tabSelected'
+            'click button.mdc-tab': 'tabSelected',
+            'click button.icon-button': 'changeView'
         };
         dispatcher.on('showCards', this.showCards, this);
+        this.currentView = null;
     }
 
     render() {
@@ -35,12 +37,18 @@ export default class Tabs extends Backbone.View {
         dispatcher.trigger(this.options.triggerName, this.selectedTab);
     }
 
+    changeView(e) {
+        this.currentView = $(e.currentTarget).data('view');
+        dispatcher.trigger(this.options.triggerName, this.selectedTab);
+    }
+
     showCards(edges) {
         this.$el.find('.content--active').html(gridLayout({
-            edges: edges
+            edges: edges,
+            view: this.currentView || 'card'
         }));
         _.each(edges, (edge) => {
-            new Card({edge: edge, type: this.selectedTab}).setElement("[id='"+ edge.node.host +"']").render();
+            new Card({edge: edge, type: this.selectedTab, view: this.currentView || 'card'}).setElement("[id='"+ edge.node.host +"']").render();
         });
     }
 }
