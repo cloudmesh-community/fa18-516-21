@@ -70,4 +70,6 @@
 * Add generic function to update single card(vm) data on UI
 * Cosmetic changes for app
 * Implement VM details dialog for client app
+* Mimic vm list update functionality to add data in mongoDB
+* Show notifications
 * Update report
