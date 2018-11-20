@@ -22,6 +22,12 @@ class Query(graphene.ObjectType):
     fetchAWSData = graphene.String()
     fetchAzureData = graphene.String()
 
+    def resolve_allAwss(self, info, **args):
+        return AwsModel.objects().order_by("-isFavorite", "host")
+
+    def resolve_allAzures(self, info, **args):
+        return AzureModel.objects().order_by("-isFavorite", "host")
+
     def resolve_fetchAWSData(self, info):
         init_aws()
         return "Success"
@@ -29,6 +35,7 @@ class Query(graphene.ObjectType):
     def resolve_fetchAzureData(self, info):
         init_azure()
         return "Success"
+
 
 class UpdateAws(graphene.Mutation):
     class Arguments:
