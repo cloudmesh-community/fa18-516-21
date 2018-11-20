@@ -15,7 +15,8 @@ export default class Button extends Backbone.View {
         this.$el.html(template({
             id: this.options.id,
             label: this.options.label,
-            optionalClass: this.options.optionalClass
+            optionalClass: this.options.optionalClass,
+            style: this.options.style
         }));
     }
 
