@@ -50,6 +50,4 @@ npm start
 
 It will open up an application where you will see title and data it got from python server.
 
-<kbd>![](../project-paper/images/login.png)</kbd>
-
-<kbd>![](../project-paper/images/dashboard.png)</kbd>
+<kbd>![](../project-paper/images/vm-list.png)</kbd>
