@@ -1,3 +1,8 @@
 {{#each data}}
+    {{#ifop @key '!==' "extra"}}
     <div class="mdc-typography--subtitle1">{{@key}} : <b>{{this}}</b></div>
+    {{else}}
+    <div class="mdc-typography--subtitle1">{{@key}} : </div>
+    <pre style="color:black">{{prettify this}}</pre>
+    {{/ifop}}
 {{/each}}
