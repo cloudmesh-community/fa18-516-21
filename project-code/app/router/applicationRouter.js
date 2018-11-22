@@ -16,16 +16,25 @@ export default class ApplicationRouter {
     }
 
     login() {
-        new Login().setElement("#cloudmesh-app").render();
+        if(!this.loginView){
+            this.loginView = new Login();
+        }
+        this.loginView.setElement("#cloudmesh-app").render();
     }
 
     app() {
-        new App().setElement("#cloudmesh-app").render();
+        if(!this.appView){
+            this.appView = new App();
+        }
+        this.appView.setElement("#cloudmesh-app").render();
         document.getElementById("title").innerHTML = "Dashboard";
     }
 
     vms() {
-        new VMs().setElement(".drawer-main-content-body").render();
+        if(!this.vmView){
+            this.vmView = new VMs();
+        }
+        this.vmView.setElement(".drawer-main-content-body").render();
         document.getElementById("title").innerHTML = "VM List";
     }
 }
