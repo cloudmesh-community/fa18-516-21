@@ -2,6 +2,7 @@ import Backbone from "backbone";
 import $ from "jquery";
 import _ from "underscore";
 import {MDCTabBar} from "@material/tab-bar";
+import {MDCMenu} from '@material/menu';
 import dispatcher from "../util/dispatcher";
 import Card from "./card";
 import template from "../templates/tabs.hbs";
@@ -13,7 +14,9 @@ export default class Tabs extends Backbone.View {
         this.options = options;
         this.events = {
             'click button.mdc-tab': 'tabSelected',
-            'click button.icon-button': 'changeView'
+            'click button.icon-button': 'changeView',
+            'click button#menu-button': 'openMenu',
+            'click .mdc-list-item': 'menuItemClick'
         };
         dispatcher.on('showCards', this.showCards, this);
         this.currentView = null;
@@ -29,7 +32,16 @@ export default class Tabs extends Backbone.View {
             document.querySelector('.content--active').classList.remove('content--active');
             contentEls[event.detail.index].classList.add('content--active');
         });
+        this.menu = new MDCMenu(document.querySelector('.mdc-menu'));
         this.selectedTab = "aws";
+    }
+
+    openMenu() {
+        this.menu.open = true;
+    }
+
+    menuItemClick(e) {
+        dispatcher.trigger("sortCards", $(e.currentTarget).data('name'), this.selectedTab);
     }
 
     tabSelected(e) {

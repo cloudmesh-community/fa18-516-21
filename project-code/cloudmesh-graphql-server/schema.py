@@ -19,14 +19,24 @@ class Query(graphene.ObjectType):
     node = Node.Field()
     allAwss = MongoengineConnectionField(AWS)
     allAzures = MongoengineConnectionField(Azure)
+    sortAWSByHost = MongoengineConnectionField(AWS)
+    sortAzureByHost = MongoengineConnectionField(Azure)
+    sortAWSByName = MongoengineConnectionField(AWS)
+    sortAzureByName = MongoengineConnectionField(Azure)
     fetchAWSData = graphene.String()
     fetchAzureData = graphene.String()
 
-    def resolve_allAwss(self, info, **args):
+    def resolve_sortAWSByHost(self, info, **args):
         return AwsModel.objects().order_by("-isFavorite", "host")
 
-    def resolve_allAzures(self, info, **args):
+    def resolve_sortAzureByHost(self, info, **args):
         return AzureModel.objects().order_by("-isFavorite", "host")
+
+    def resolve_sortAWSByName(self, info, **args):
+        return AwsModel.objects().order_by("-isFavorite", "name")
+
+    def resolve_sortAzureByName(self, info, **args):
+        return AzureModel.objects().order_by("-isFavorite", "name")
 
     def resolve_fetchAWSData(self, info):
         init_aws()

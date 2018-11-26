@@ -20,6 +20,7 @@ export default class VMs extends Backbone.View {
         dispatcher.on("cardAction", this.updateCard, this);
         dispatcher.on("showDetails", this.showDetails, this);
         dispatcher.on("updateVMDataClick", this.updateMongoDB, this);
+        dispatcher.on("sortCards", this.sortCards, this);
         this.pageInfo = {};
         this.selectedTab = "aws";
         this.isLoading = false;
@@ -144,5 +145,25 @@ export default class VMs extends Backbone.View {
             new Notification({text: "Data successfully loaded from cloud to database."}).render();
             this.loadFirstPageData(VMs.vmClause(this.selectedTab));
         });
+    }
+
+    sortCards(name, tab) {
+        if(name === "none") {
+            this.edges[tab] = [];
+            this.loadFirstPageData(VMs.vmClause(tab));
+        } else {
+            let queryName = "";
+            if(tab == "aws") {
+                queryName = (name == "host") ? "sortAWSByHost" : "sortAWSByName"
+            } else {
+                queryName = (name == "host") ? "sortAzureByHost" : "sortAzureByName"
+            }
+            let vmQuery = "{ " + queryName + " (first:40) { edges { node { host, name, region, image, state, isFavorite} }, pageInfo { endCursor, hasNextPage } } }";
+            Api.post(vmQuery).then((res) => {
+                this.pageInfo[this.selectedTab] = res.data[queryName].pageInfo;
+                this.edges[this.selectedTab] = res.data[queryName].edges;
+                dispatcher.trigger("showCards", this.edges[this.selectedTab]);
+            });
+        }
     }
 }

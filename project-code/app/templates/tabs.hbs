@@ -43,17 +43,32 @@
   </div>
 </div>
 <div>
-    <div class="mdc-card__action-icons" style="align-content: flex-start">
-        <button title="Card view" data-view="card" class="viewCard icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
-            <i class="material-icons mdc-icon-button__icon">view_comfy</i>
-        </button>
-        <button title="Table view" data-view="table" class="icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
-            <i class="material-icons mdc-icon-button__icon">menu</i>
-        </button>
+  <div class="mdc-card__action-icons" style="align-content: flex-start">
+    <div id="demo-menu" class="mdc-menu-surface--anchor">
+      <button class="mdc-button" id="menu-button">Sort By</button>
+      <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+        <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+          <li class="mdc-list-item" data-name="none" role="menuitem">
+            <span class="mdc-list-item__text">None</span>
+          </li>
+          <li class="mdc-list-item" data-name="host" role="menuitem">
+            <span class="mdc-list-item__text">Host</span>
+          </li>
+          <li class="mdc-list-item" data-name="name" role="menuitem">
+            <span class="mdc-list-item__text">Name</span>
+          </li>
+        </ul>
+      </div>
     </div>
+    <button title="Card view" data-view="card" class="viewCard icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
+      <i class="material-icons mdc-icon-button__icon">view_comfy</i>
+    </button>
+    <button title="Table view" data-view="table" class="icon-button icon-button-action mdc-icon-button mdc-card__action mdc-card__action--icon mdc-ripple-surface mdc-ripple-radius-unbounded">
+      <i class="material-icons mdc-icon-button__icon">menu</i>
+    </button>
+  </div>
 </div>
 <div class="content content--active"></div>
 <div class="content"></div>
 <div class="content">Chameleon Cloud data</div>
 <div class="content">Google Cloud</div>
-
