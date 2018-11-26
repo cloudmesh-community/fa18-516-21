@@ -73,9 +73,9 @@
 * Mimic vm list update functionality to add data in mongoDB
 * Show notifications
 * Update report
+* Fix multiple click issue
+* Prettify JSON format in VM details popup
 
 # Week 11/23/18 - 11/29/18
 
-* Fix multiple click issue
-* Prettify JSON format in VM details popup
 * Added sort by queries and UI dropdown to sort based on "host" and "name"
