@@ -150,3 +150,5 @@ npm start
 | Add code to show VM details                        | Mihir  |
 | Add code to mimic DB update from cloudmesh data    | Mihir  |
 | Add code to show notifications                     | Mihir  |
+| Add helper to prettify JSON                        | Mihir  |
+| Implement sort by dropdown and integrate with API  | Mihir  |
