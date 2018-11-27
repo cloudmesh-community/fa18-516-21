@@ -24,3 +24,17 @@ class Azure(Document):
     state = StringField()
     extra = DictField()
     isFavorite = StringField()
+
+class AzureImage(Document):
+    meta = {'collection':'azureImage'}
+    location = StringField()
+    name = StringField()
+    offer = StringField()
+    publisher = StringField()
+    sku = StringField()
+    version = StringField()
+
+class AWSImage(Document):
+    meta = {'collection':'awsImage'}
+    extra = DictField()
+    name = StringField()
