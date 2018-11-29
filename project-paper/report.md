@@ -54,11 +54,11 @@ instance to which all client apps can connect.
 
 Client App is designed using following technologies
 
-* ElectronJS[@electronjs] : Using ElectronJS we can build cross platform 
+* ElectronJS [@electronjs] : Using ElectronJS we can build cross platform 
   desktop apps with JavaScript, HTML and CSS. ElectronJS combines
   power of native apps with beautiful web interface.
 
-* BackboneJS[@backbonejs] : BackboneJS provides an MVC structure with 
+* BackboneJS [@backbonejs] : BackboneJS provides an MVC structure with 
   models,collections and views. For code reusability views have been 
   divided in to two categories
   
@@ -76,7 +76,7 @@ Client App is designed using following technologies
 * jQuery [@jquery]: jQuery provides set of functions which are very useful
   for DOM manipulation
 
-* Material UI [@materialui]: Material UI is open source desing spec which is 
+* Material UI [@materialui]: Material UI is open source design spec which is 
   mainly developed by Google. We are using web component implementation of
   Material UI.
 
