@@ -42,16 +42,12 @@ More info for GraphQL is available as a chapter in cloud computing handbook.
 
 Cloudmesh App is divided in two parts
 
-* Client App
-
-Client app can be distributed to users. This app will provide a simple 
+* *Client App*: Client app can be distributed to users. This app will provide a simple 
 interface to user using which user can execute all commands provided by cm4.
 Client app will communicate with GraphQL server and based on input from user
 server will execute commands.
 
-* GraphQL server
-
-This GraphQL server will be running on one cloud 
+* *GraphQL server*: This GraphQL server will be running on one cloud 
 instance to which all client apps can connect.
 
 ## Architecture
@@ -65,25 +61,26 @@ Client App is designed using following technologies
 * BackboneJS[@backbonejs] : BackboneJS provides an MVC structure with 
   models,collections and views. For code reusability views have been 
   divided in to two categories
+  
   * Smart View: Knows how to communicate with server but doesn't know about 
     representation 
   * Dumb View: Doesn't know how to communicate with server but knows how to 
     render data
 
-* HandlebarsJS[@handlebarsjs] : Handlebars provides set of functions which 
+* HandlebarsJS [@handlebarsjs]: Handlebars provides set of functions which 
   lets us build generic HTML templates easily. It also provides a way to 
   extend helper function and create custom helpers to use in templates.
   * All custom helper functions for tempaltes are defined at utils/helpers 
     space
 
-* jQuery[@jquery] : jQuery provides set of functions which are very useful
+* jQuery [@jquery]: jQuery provides set of functions which are very useful
   for DOM manipulation
 
-* Material UI[@materialui] : Material UI is open source desing spec which is 
+* Material UI [@materialui]: Material UI is open source desing spec which is 
   mainly developed by Google. We are using web component implementation of
   Material UI.
 
-* Webpack[@webpack] : Webpack is a module bundler and also it provides a way
+* Webpack [@webpack]: Webpack is a module bundler and also it provides a way
   to specify loaders for different file types. For example handlebars loader
   is used to load and compile handlebar template before creating bundle.
 
