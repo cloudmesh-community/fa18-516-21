@@ -149,3 +149,5 @@ npm start
 | Add code to show notifications                     | Mihir  |
 | Add helper to prettify JSON                        | Mihir  |
 | Implement sort by dropdown and integrate with API  | Mihir  |
+| Added table view to the list of VMs                | Vineet |
+| Added sorting by IsFavorite and host               | Vineet |
