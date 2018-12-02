@@ -79,3 +79,8 @@
 # Week 11/23/18 - 11/29/18
 
 * Added sort by queries and UI dropdown to sort based on "host" and "name"
+
+# Week 11/30/18 - 12/06/18
+
+* Implement list image feature for App
+* Implement API to list image
