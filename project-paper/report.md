@@ -151,3 +151,5 @@ npm start
 | Implement sort by dropdown and integrate with API  | Mihir  |
 | Added table view to the list of VMs                | Vineet |
 | Added sorting by IsFavorite and host               | Vineet |
+| Implement image page to list image                 | Mihir  |
+| Implement list all image APIs                      | Mihir  |
