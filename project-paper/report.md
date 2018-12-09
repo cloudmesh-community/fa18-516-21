@@ -5,17 +5,13 @@
 | Indiana University
 | hid: fa18-516-21 fa18-516-02
 | github: [:cloud:](https://github.com/cloudmesh-community/fa18-516-21/blob/master/project-paper/report.md)
-| code: [:cloud:](https://github.com/cloudmesh-community/fa18-516-21/tree/master/project-code)
+| code: [:cloud:](https://github.com/cloudmesh-community/graphql)
 
 ---
 
 Keywords: GraphQL, Cloudmesh client, mongoengine, Flask, Electron
 
 ---
-
-## Abstract
-
-
 
 ## Introduction
 
@@ -38,7 +34,7 @@ More info for GraphQL is available as a chapter in cloud computing handbook.
 * Client App should send user action to server and mutate date
 * Client and server should be able to handle more than 10000 VMs 
 
-## Design 
+## Architecture
 
 Cloudmesh App is divided in two parts
 
@@ -49,8 +45,6 @@ server will execute commands.
 
 * *GraphQL server*: This GraphQL server will be running on one cloud 
 instance to which all client apps can connect.
-
-## Architecture
 
 Client App is designed using following technologies
 
@@ -84,41 +78,105 @@ Client App is designed using following technologies
   to specify loaders for different file types. For example handlebars loader
   is used to load and compile handlebar template before creating bundle.
 
+GraphQL server is designed using following technologies
+
+* Python 3 (Please refer handbook for introduction)
+  
+* Flask (Please refer handbook for introduction)
+
+* Graphene (Please refere handbook for introduction)
+  
+* Flask-GraphQL [@www-flask-graphql]: Flask-GraphQL adds support for GraphQL
+  to flask application.
+
+* Graphene-Mongo [@graphene-mongo]: An integration of graphene and 
+  mongoengine.
+
 ## Dataset
 
-Used faker to generate fake data for testing.
+Used faker [@faker] to generate fake data for testing.
 
 ## Implementation
 
-* Checkout project-code and execute following commands
+Please refer README.md available under project code to install and start app. 
 
-```bash
-cd app
-npm install
+As soon as app starts it shows following login page
+
+![](images/login.png)
+**Figure:** Login Page
+
+Since authentication is not requirement for this this project and its 
+already implemented with GraphQL example in handbook, it is not implemented
+in project. You can click *Login* button it will show home page. Home page
+is for showing dashboard. It is empty as of now.
+
+Click *VMs* will show following view
+
+![](images/vm-list.png)
+**Figure:** VM List
+
+Default view is card layout. You can switch to table layout using action 
+available at top-right corner
+
+![](images/vm-view-options.png)
+**Figure:** View options
+
+For first page load only app will query only first 40 VMs using query
+
+```graphql
+{
+    query { 
+        allAzures (first:40) { 
+            edges { 
+                node { 
+                    host, 
+                    name, 
+                    region, 
+                    image, 
+                    state, 
+                    isFavorite
+                } 
+            }, 
+            pageInfo { 
+                endCursor, 
+                hasNextPage 
+            } 
+        } 
+    }
+}
 ```
 
-After all UI dependencies are installed execute following commands
+As you scroll the list will be updated with query
 
-```bash
-cd ..
-python3 -m venv cloudmesh-graphql-server
-cd cloudmesh-graphql-server
-source bin/activate
-pip install -r requirements.txt
+```graphql
+{
+    query { 
+        allAzures (first: 40, after: \"YXJyYXljb25uZWN0aW9uOjM5\") { 
+            edges { 
+                cursor, 
+                node { 
+                    host,
+                    name, 
+                    region, 
+                    publicIps, 
+                    privateIps, 
+                    image, 
+                    state, 
+                    isFavorite
+                } 
+            },  
+            pageInfo { 
+                endCursor, 
+                hasNextPage 
+            } 
+        } 
+    }
+}
 ```
 
-Now to start graphql server execute following command
-
-```bash
-python app.py
-```
-
-Once the server is started open another terminal and go to app directory. 
-To start client app execute
-
-```bash
-npm start
-```
+This way we can load any number of VMs without any performance issue. 
+Each vm as a set of actions assigned. You can start/stop, mark as favorite
+and view details of VM.
 
 ## Benchmark
 
