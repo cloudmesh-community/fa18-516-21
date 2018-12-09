@@ -52,7 +52,9 @@ More info for GraphQL is available as a chapter in cloud computing handbook.
 
 ## Architecture
 
-![Cloudmesh GraphQL Architecture](images/CloudmeshGraphQL-Architecture.png)
++@fig:graphqlapparchitecture shows architecture of Cloudmesh GraphQL app.
+
+![Cloudmesh GraphQL Architecture](images/CloudmeshGraphQL-Architecture.png){#fig:graphqlapparchitecture}
 
 Cloudmesh App is divided in two parts
 
@@ -118,28 +120,26 @@ We used python's 3rd party library *faker*[@faker] to generate fake data for tes
 
 Please refer README.md available under project code to install and start app. 
 
-As soon as app starts it shows following login page
++@fig:graphqlapplogin shows following login page of app
 
-![](images/login.png)
-**Figure:** Login Page
+![Login Page](images/graphql-app-login.png){#fig:graphqlapplogin}
 
 Since authentication is not requirement for this project and its already
 implemented with GraphQL example in handbook, we have not implemented
 in project. You can click *Login* button it will show home page. Home page
 is for showing dashboard. It is empty as of now.
 
-Click *VMs* will show following view
++@fig:graphqlappvmlist shows the view rendered on click of *VMs* button
 
-![](images/vm-list.png)
-**Figure:** VM List
+![VM List](images/graphql-app-vm-details.png){#fig:graphqlappvmlist}
 
 Default view is card layout. You can switch to table layout using action 
-available at top-right corner
+available at top-right corner. +@fig:graphqlappviewoptions shows available 
+options
 
-![](images/vm-view-options.png)
-**Figure:** View options
+![View options](images/graphql-app-vm-view-options.png){#fig:graphqlappviewoptions}
 
-For first page load only app will query only first 40 VMs using query
+App will list only first 40 VMs using query
 
 ```graphql
 {
@@ -192,12 +192,12 @@ As you scroll the list will be updated with query
 }
 ```
 
-This way we can load any number of VMs without any performance issue. 
-Each vm as a set of actions assigned. You can start/stop, mark as favorite
-and view details of VM.
+This way the app can load any number of VMs without any performance issue. 
+Each vm has a set of actions assigned. You can start/stop, mark as favorite
+or view details of VM. +@fig:graphqlappvmactions explains all the available 
+actions for each VM in the list.
 
-![](images/vm-actions.png)
-**Figure:** VM actions
+![VM Actions](images/graphql-app-vm-actions.png){#fig:graphqlappvmactions}
 
 On click of *start vm* app will execute mutation query
 
@@ -222,10 +222,9 @@ mutation($cardAction:String!,$value:String!,$host:String!,$action:String!) {
 ```
 
 On click of *View Details* action app will open pop-up and show following 
-view
+VM details. +@fig:graphqlappvmdetails shows details view
 
-![](images/vm-details.png)
-**Figure:** VM Details
+![VM Details](images/graphql-app-vm-details.png){#fig:graphqlappvmdetails}
 
 You can use *Sort By* dropdown menu available at top-right corner to sort VM 
 list by host and name. When you sort a list it will also sort VMs by favorite
