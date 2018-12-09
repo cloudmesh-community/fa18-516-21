@@ -15,19 +15,31 @@ Keywords: GraphQL, Cloudmesh client, mongoengine, Flask, Electron
 
 ## Abstract
 
-
-
-## Introduction
-
 Cloudmesh cm4 is an ongoing project worked upon by entire class to create a 
-network of computers that run parallel jobs. Currently it accepts commands via 
-command line. 
-
+network of computers that run parallel jobs. Currently it accepts commands 
+via command line.
 Our project provides an user interface to Cloudmesh cm4. In our project, we 
 have implemented a client-server application which will accept commands from 
 user interface and pass it to server which will perform corresponding 
-appropriate actions. Our second aim with this project is to demonstrate client 
-server communication through GraphQL Apis.
+appropriate actions. Our second aim with this project is to demonstrate 
+client server communication through GraphQL Apis.
+
+## Introduction
+
+Our aim with this project was to learn GraphQL and gain deep understanding 
+into how effectively it can be used in place of Rest Apis. Along with this 
+we also wanted to contribute to ongoing Cloudmesh cm4 project. Currently cm4
+accepts commands via command line. And thats when we realized that we could 
+use GraphQL and create a user interface which would translate user actions 
+into cm4 commands and in turn execute those commands. 
+
+Our project has pages for both list of Virtual Machines and list of Images.
+User can start, restart, shutdown any VM or image. They can also mark them 
+as their favorites so that they appear at the top for them.
+
+We have implemented lazy loading or infinite scrolling due to which 
+irrespective of how big the list of Virtual Machines or Images be, it loads 
+them in batches which improves page rendering performance.
 
 More info for GraphQL is available as a chapter in cloud computing handbook.
 
@@ -35,7 +47,7 @@ More info for GraphQL is available as a chapter in cloud computing handbook.
 
 * A cross platform desktop application which can be reditributed to users
 * Client App should show data from MongoDB using GraphQL APIs
-* Client App should send user action to server and mutate date
+* Client App should send user action to server and mutate data
 * Client and server should be able to handle more than 10000 VMs 
 
 ## Design 
@@ -51,6 +63,16 @@ server will execute commands.
 instance to which all client apps can connect.
 
 ## Architecture
+
+![Cloudmesh GraphQL Architecture](../images/CloudmeshGraphQL-Architecture.png)
+
+Our GraphQL backend server consists of the below components
+
+* Flask : Flask is a python framework to setup web server in a quick and easy manner
+
+* flask-graphql : Python library to facilitate interactions between Flask engine and GraphQL 
+
+* graphene-mongo : Python library for interaction with MongoDB database
 
 Client App is designed using following technologies
 
@@ -86,7 +108,7 @@ Client App is designed using following technologies
 
 ## Dataset
 
-Used faker to generate fake data for testing.
+We used python's 3rd party library *faker* to generate fake data for testing.
 
 ## Implementation
 
@@ -118,6 +140,45 @@ To start client app execute
 
 ```bash
 npm start
+```
+
+## Summary
+
+### Sorting support
+
+We observed that graphene-mongo does not have support for sorting. And after 
+exploring a little more, we found that below GraphQL servers did support it
+* expressjs-server
+* Flask-SQLAlchemy
+* Graphene-Django
+
+But we were able to find out a workaround which was not necessarily a very 
+convenient way. We had to write to multiple resolver functions for each sort
+function.
+
+```python
+    def resolve_sortAWSByHost(self, info, **args):
+        return AwsModel.objects().order_by("-isFavorite", "host")
+
+    def resolve_sortAzureByHost(self, info, **args):
+        return AzureModel.objects().order_by("-isFavorite", "host")
+
+    def resolve_sortAWSByName(self, info, **args):
+        return AwsModel.objects().order_by("-isFavorite", "name")
+
+    def resolve_sortAzureByName(self, info, **args):
+        return AzureModel.objects().order_by("-isFavorite", "name")
+```
+
+### Indexing
+
+Once we sorted the data, we observed huge performance degradation in data 
+fetching. Hence it became necesarry for us apply correct indexing on mongodb.
+We applied multiple indexes on the columns which we were using for sorting to
+see some improvements.
+
+```mongodb
+collection_vm.create_index([("isFavorite", pymongo.DESCENDING)])
 ```
 
 ## Benchmark
