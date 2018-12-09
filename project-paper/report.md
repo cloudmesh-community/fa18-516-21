@@ -120,7 +120,7 @@ We used python's 3rd party library *faker*[@faker] to generate fake data for tes
 
 Please refer README.md available under project code to install and start app. 
 
-+@fig:graphqlapplogin shows following login page of app
++@fig:graphqlapplogin shows login page of app
 
 ![Login Page](images/graphql-app-login.png){#fig:graphqlapplogin}
 
