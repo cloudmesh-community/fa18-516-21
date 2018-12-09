@@ -47,7 +47,7 @@ More info for GraphQL is available as a chapter in cloud computing handbook.
 
 * A cross platform desktop application which can be reditributed to users
 * Client App should show data from MongoDB using GraphQL APIs
-* Client App should send user action to server and mutate date
+* Client App should send user action to server and mutate data
 * Client and server should be able to handle more than 10000 VMs 
 
 ## Architecture
@@ -112,7 +112,7 @@ GraphQL server is designed using following technologies
 
 ## Dataset
 
-Used faker [@faker] to generate fake data for testing.
+We used python's 3rd party library *faker*[@faker] to generate fake data for testing.
 
 ## Implementation
 
@@ -196,6 +196,50 @@ This way we can load any number of VMs without any performance issue.
 Each vm as a set of actions assigned. You can start/stop, mark as favorite
 and view details of VM.
 
+![](images/vm-actions.png)
+**Figure:** VM actions
+
+On click of *start vm* app will execute mutation query
+
+```graphql
+mutation($cardAction:String!,$value:String!,$host:String!,$action:String!) { 
+    updateAzure(host:$host, action:$action, actionDetail: $cardAction, value: $value) {
+        azure { 
+            state 
+        } 
+    } 
+}
+```
+```json
+{
+    "variables": {
+        "cardAction":"start",
+        "action":"state",
+        "host":"desktop-28.woods-porter.com",
+        "value":"false"
+    }
+}
+```
+
+On click of *View Details* action app will open pop-up and show following 
+view
+
+![](images/vm-details.png)
+**Figure:** VM Details
+
+You can use *Sort By* dropdown menu available at top-right corner to sort VM 
+list by host and name. When you sort a list it will also sort VMs by favorite
+flag. While implementing the app we found that graphene has not yet support 
+for sorting. So we created a query and used *order_by* function provided by 
+mongo. We found that reponse time for sorting is around 10s which is very slow. 
+
+At any time you can switch cloud provider by just switching the tabs available 
+at top.
+
+*Update VM Data* button available at top-right corner, is used to load data from
+cloudmesh and store it in mongo database. Right now integration with cm4 is not
+implemented but faker will generate some fake data and store it in mongodb.
+
 ## Summary
 
 ### Sorting support
@@ -235,11 +279,26 @@ see some improvements.
 collection_vm.create_index([("isFavorite", pymongo.DESCENDING)])
 ```
 
-## Benchmark
+## Conclusion and future work 
 
-## Conclusion
+Cloudmesh GraphQL App provides a very nice interface which can be used by 
+non-technical users as well. There are some performance bottlencks which we 
+observerd for sorting, but it is not actually GraphQL issue because the sorting
+function was provided by `mongoengine`. We think that after indexing and tweaking
+some parameters for mongodb it can be improved but we haven't tried it. In future 
+fake data generation can be just replaced with command like `cm4 vm list`. Or 
+even better option would be to integrate cloudmesh inside app so that a 
+standalone app can be distributed to users without need to install cm4 package.
+
+Also from future implementation perspective GraphQL implementations in other
+languages should be explored. While implementation of app we observed that some 
+of the functions are not implemented by `Graphene` which is GraphQL implementation 
+in python.
 
 ## Acknowledgement
+
+We would like to thank Professor Gregor von Laszweski and TAs for their support and
+guidance. 
 
 ## Workbreakdown
 
