@@ -123,8 +123,8 @@ As soon as app starts it shows following login page
 ![](images/login.png)
 **Figure:** Login Page
 
-Since authentication is not requirement for this this project and its 
-already implemented with GraphQL example in handbook, it is not implemented
+Since authentication is not requirement for this project and its already
+implemented with GraphQL example in handbook, we have not implemented
 in project. You can click *Login* button it will show home page. Home page
 is for showing dashboard. It is empty as of now.
 
