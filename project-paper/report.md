@@ -18,8 +18,8 @@ Keywords: GraphQL, Cloudmesh client, mongoengine, Flask, Electron
 Cloudmesh cm4 is an ongoing project worked upon by entire class to create a 
 network of computers that can run parallel jobs. Currently it accepts commands 
 via command line. Our project provides an user interface to Cloudmesh cm4. 
-As part of our project, we have implemented a client-server application which
-will communicate through GraphQL APIs.
+We implemented a client-server application which will communicate through 
+GraphQL APIs.
 
 ## Introduction
 
