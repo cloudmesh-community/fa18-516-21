@@ -66,11 +66,11 @@ Cloudmesh App is divided in two parts
 
 Client App is designed using following technologies
 
-* ElectronJS [@electronjs] : Using ElectronJS we can build cross platform 
+* ElectronJS [@fa18-516-21-electronjs] : Using ElectronJS we can build cross platform 
   desktop apps with JavaScript, HTML and CSS. ElectronJS combines
   power of native apps with beautiful web interface.
 
-* BackboneJS [@backbonejs] : BackboneJS provides an MVC structure with 
+* BackboneJS [@fa18-516-21-backbonejs] : BackboneJS provides an MVC structure with 
   models,collections and views. For code reusability views have been 
   divided in to two categories
   
@@ -79,20 +79,20 @@ Client App is designed using following technologies
   * Dumb View: Doesn't know how to communicate with server but knows how to 
     render data
 
-* HandlebarsJS [@handlebarsjs]: Handlebars provides set of functions which 
+* HandlebarsJS [@fa18-516-21-handlebarsjs]: Handlebars provides set of functions which 
   lets us build generic HTML templates easily. It also provides a way to 
   extend helper function and create custom helpers to use in templates.
   * All custom helper functions for tempaltes are defined at utils/helpers 
     space
 
-* jQuery [@jquery]: jQuery provides set of functions which are very useful
+* jQuery [@fa18-516-21-jquery]: jQuery provides set of functions which are very useful
   for DOM manipulation
 
-* Material UI [@materialui]: Material UI is open source design spec which is 
+* Material UI [@fa18-516-21-materialui]: Material UI is open source design spec which is 
   mainly developed by Google. We are using web component implementation of
   Material UI.
 
-* Webpack [@webpack]: Webpack is a module bundler and also it provides a way
+* Webpack [@fa18-516-21-webpack]: Webpack is a module bundler and also it provides a way
   to specify loaders for different file types. For example handlebars loader
   is used to load and compile handlebar template before creating bundle.
 
@@ -104,15 +104,15 @@ GraphQL server is designed using following technologies
 
 * Graphene (Please refere the handbook for introduction)
   
-* Flask-GraphQL [@www-flask-graphql]: Flask-GraphQL adds support for GraphQL
+* Flask-GraphQL [@fa18-516-21-www-flask-graphql]: Flask-GraphQL adds support for GraphQL
   to the flask application.
 
-* Graphene-Mongo [@graphene-mongo]: An integration of graphene and 
+* Graphene-Mongo [@fa18-516-21-graphene-mongo]: An integration of graphene and 
   mongoengine.
 
 ## Dataset
 
-We used python's 3rd party library *faker*[@faker] to generate fake data 
+We used python's 3rd party library *faker*[@fa18-516-21-faker] to generate fake data 
 for testing.
 
 ## Implementation
