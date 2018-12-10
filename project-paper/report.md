@@ -1,4 +1,4 @@
-# Cloudmesh GraphQL App :hand: fa18-516-21 and fa18-516-02
+# Cloudmesh GraphQL App :smiley: fa18-516-21 and fa18-516-02
 
 | Mihir Shanishchara, Vineet Barshikar
 | mshanish@iu.edu, vbarshik@indiana.edu
@@ -18,10 +18,8 @@ Keywords: GraphQL, Cloudmesh client, mongoengine, Flask, Electron
 Cloudmesh cm4 is an ongoing project worked upon by entire class to create a 
 network of computers that can run parallel jobs. Currently it accepts commands 
 via command line. Our project provides an user interface to Cloudmesh cm4. 
-In our project, we have implemented a client-server application which will 
-accept commands from user interface and pass it to tne server which will 
-perform corresponding appropriate actions. Our second aim with this project 
-is to demonstrate client server communication through GraphQL APIs.
+As part of our project, we have implemented a client-server application which
+will communicate through GraphQL APIs.
 
 ## Introduction
 
@@ -119,7 +117,7 @@ for testing.
 
 ## Implementation
 
-Please refer README.md available under project code to install and start app. 
+Please refer [README.md](https://github.com/cloudmesh-community/graphql/blob/master/README.md) available under project code to install and start app. 
 
 +@fig:graphqlapplogin shows login page of app
 
@@ -132,7 +130,7 @@ empty as of now.
 
 +@fig:graphqlappvmlist shows the view rendered on click of *VMs* button
 
-![VM List](images/graphql-app-vm-details.png){#fig:graphqlappvmlist}
+![VM List](images/graphql-app-vm-list.png){#fig:graphqlappvmlist}
 
 Default view is card layout. You can switch to table layout using action 
 available at the top-right corner. +@fig:graphqlappviewoptions shows available 
@@ -236,23 +234,23 @@ provided by mongo.
 At any time you can switch cloud provider by just switching the tabs available 
 at top.
 
-*Update VM Data* button available at top-right corner, is used to load data from
-cloudmesh and store it in mongo database. Right now integration with cm4 is not
-implemented but faker will generate some fake data and store it in mongodb.
+*Update VM Data* button available at top-right corner, is used to load the data 
+from cloudmesh and store it in mongo database. Right now integration with cm4 
+is not implemented but faker will generate some fake data and store it in mongodb.
 
 ## Summary
 
 ### Sorting support
 
 We observed that graphene-mongo does not have support for sorting. And after 
-exploring a little more, we found that below GraphQL servers did support it
+exploring a little more, we found that below GraphQL servers do support it
+
 * expressjs-server
 * Flask-SQLAlchemy
 * Graphene-Django
 
-But we were able to find out a workaround which was not necessarily a very 
-convenient way. We had to write to multiple resolver functions for each sort
-function.
+We were able to find out a workaround but it is not a very convenient way. 
+We had to write to multiple resolver functions for each sort function.
 
 ```python
     def resolve_sortAWSByHost(self, info, **args):
@@ -281,7 +279,7 @@ collection_vm.create_index([("isFavorite", pymongo.DESCENDING)])
 
 ## Conclusion and future work 
 
-Cloudmesh GraphQL App provides a very nice interface which can be used by 
+Cloudmesh GraphQL App provides a very nice interface so it can be used by 
 non-technical users as well. There are some performance bottlencks which we 
 observerd for sorting, but it is not actually GraphQL issue because the sorting
 function was provided by `mongoengine`. We think that after indexing and tweaking
@@ -291,9 +289,8 @@ even better option would be to integrate cloudmesh inside app so that a
 standalone app can be distributed to users without need to install cm4 package.
 
 Also from future implementation perspective GraphQL implementations in other
-languages should be explored. While implementation of app we observed that some 
-of the functions are not implemented by `Graphene` which is GraphQL implementation 
-in python.
+languages should be explored. While implementing the app we observed that some 
+of the functions are not implemented by `Graphene`.
 
 ## Acknowledgement
 
