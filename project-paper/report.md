@@ -16,18 +16,17 @@ Keywords: GraphQL, Cloudmesh client, mongoengine, Flask, Electron
 ## Abstract
 
 Cloudmesh cm4 is an ongoing project worked upon by entire class to create a 
-network of computers that run parallel jobs. Currently it accepts commands 
-via command line.
-Our project provides an user interface to Cloudmesh cm4. In our project, we 
-have implemented a client-server application which will accept commands from 
-user interface and pass it to server which will perform corresponding 
-appropriate actions. Our second aim with this project is to demonstrate 
-client server communication through GraphQL Apis.
+network of computers that can run parallel jobs. Currently it accepts commands 
+via command line. Our project provides an user interface to Cloudmesh cm4. 
+In our project, we have implemented a client-server application which will 
+accept commands from user interface and pass it to tne server which will 
+perform corresponding appropriate actions. Our second aim with this project 
+is to demonstrate client server communication through GraphQL APIs.
 
 ## Introduction
 
 Our aim with this project was to learn GraphQL and gain deep understanding 
-into how effectively it can be used in place of Rest Apis. Along with this 
+into how effectively it can be used in place of Rest APIs. Along with this 
 we also wanted to contribute to ongoing Cloudmesh cm4 project. Currently cm4
 accepts commands via command line. And thats when we realized that we could 
 use GraphQL and create a user interface which would translate user actions 
@@ -41,7 +40,8 @@ We have implemented lazy loading or infinite scrolling due to which
 irrespective of how big the list of Virtual Machines or Images be, it loads 
 them in batches which improves page rendering performance.
 
-More info for GraphQL is available as a chapter in cloud computing handbook.	
+More info about GraphQL is available as a chapter in the cloud computing 
+handbook.	
 
 ## Requirements
 
@@ -58,13 +58,13 @@ More info for GraphQL is available as a chapter in cloud computing handbook.
 
 Cloudmesh App is divided in two parts
 
-* *Client App*: Client app can be distributed to users. This app will provide a simple 
-interface to user using which user can execute all commands provided by cm4.
-Client app will communicate with GraphQL server and based on input from user
-server will execute commands.
+* *Client App*: Client app can be distributed to the users. This app will 
+  provide a simple interface to the user, using which user can execute all 
+  commands provided by cm4. Client app will communicate with GraphQL server 
+  and based on input from the user, server will execute commands.
 
 * *GraphQL server*: This GraphQL server will be running on one cloud 
-instance to which all client apps can connect.
+  instance to which all client apps can connect.
 
 Client App is designed using following technologies
 
@@ -100,21 +100,22 @@ Client App is designed using following technologies
 
 GraphQL server is designed using following technologies
 
-* Python 3 (Please refer handbook for introduction)
+* Python 3 (Please refer the handbook for introduction)
   
-* Flask (Please refer handbook for introduction)
+* Flask (Please refer the handbook for introduction)
 
-* Graphene (Please refere handbook for introduction)
+* Graphene (Please refere the handbook for introduction)
   
 * Flask-GraphQL [@www-flask-graphql]: Flask-GraphQL adds support for GraphQL
-  to flask application.
+  to the flask application.
 
 * Graphene-Mongo [@graphene-mongo]: An integration of graphene and 
   mongoengine.
 
 ## Dataset
 
-We used python's 3rd party library *faker*[@faker] to generate fake data for testing.
+We used python's 3rd party library *faker*[@faker] to generate fake data 
+for testing.
 
 ## Implementation
 
@@ -125,17 +126,17 @@ Please refer README.md available under project code to install and start app.
 ![Login Page](images/graphql-app-login.png){#fig:graphqlapplogin}
 
 Since authentication is not requirement for this project and its already
-implemented with GraphQL example in handbook, we have not implemented
-in project. You can click *Login* button it will show home page. Home page
-is for showing dashboard. It is empty as of now.
+implemented with GraphQL example in handbook, we have not implemented it
+in project. On click of *Login* button user will see dashboard, which is 
+empty as of now.
 
 +@fig:graphqlappvmlist shows the view rendered on click of *VMs* button
 
 ![VM List](images/graphql-app-vm-details.png){#fig:graphqlappvmlist}
 
 Default view is card layout. You can switch to table layout using action 
-available at top-right corner. +@fig:graphqlappviewoptions shows available 
-options
+available at the top-right corner. +@fig:graphqlappviewoptions shows available 
+view options for the VM list
 
 ![View options](images/graphql-app-vm-view-options.png){#fig:graphqlappviewoptions}
 
@@ -164,7 +165,7 @@ App will list only first 40 VMs using query
 }
 ```
 
-As you scroll the list will be updated with query
+On vertical scroll, the list will be updated with query
 
 ```graphql
 {
@@ -199,7 +200,7 @@ actions for each VM in the list.
 
 ![VM Actions](images/graphql-app-vm-actions.png){#fig:graphqlappvmactions}
 
-On click of *start vm* app will execute mutation query
+On click of *start vm* app will execute this mutation query
 
 ```graphql
 mutation($cardAction:String!,$value:String!,$host:String!,$action:String!) { 
@@ -221,16 +222,16 @@ mutation($cardAction:String!,$value:String!,$host:String!,$action:String!) {
 }
 ```
 
-On click of *View Details* action app will open pop-up and show following 
-VM details. +@fig:graphqlappvmdetails shows details view
+On click of *View Details* action the app will open pop-up and show VM 
+details. +@fig:graphqlappvmdetails shows details view
 
 ![VM Details](images/graphql-app-vm-details.png){#fig:graphqlappvmdetails}
 
-You can use *Sort By* dropdown menu available at top-right corner to sort VM 
-list by host and name. When you sort a list it will also sort VMs by favorite
-flag. While implementing the app we found that graphene has not yet support 
-for sorting. So we created a query and used *order_by* function provided by 
-mongo. We found that reponse time for sorting is around 10s which is very slow. 
+User can use *Sort By* dropdown menu available at the top-right corner to 
+sort the VM list by host and name. When you sort a list it will also sort 
+VMs by favorite flag. While implementing the app we found that graphene does 
+not yet support sorting. So we created a query and used *order_by* function 
+provided by mongo.
 
 At any time you can switch cloud provider by just switching the tabs available 
 at top.
