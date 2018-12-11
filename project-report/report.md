@@ -4,7 +4,7 @@
 | mshanish@iu.edu, vbarshik@indiana.edu
 | Indiana University
 | hid: fa18-516-21 fa18-516-02
-| github: [:cloud:](https://github.com/cloudmesh-community/fa18-516-21/blob/master/project-paper/report.md)
+| github: [:cloud:](https://github.com/cloudmesh-community/fa18-516-21/blob/master/project-report/report.md)
 | code: [:cloud:](https://github.com/cloudmesh-community/graphql)
 
 ---

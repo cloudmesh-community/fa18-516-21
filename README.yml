@@ -18,7 +18,7 @@ paper:
 project:
   - title: "Cloudmesh Graphql App"
     keyword: Cloudmesh GraphQL
-    url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/project-paper/report.md"
+    url: "https://github.com/cloudmesh-community/fa18-516-21/blob/master/project-report/report.md"
     group: fa18-516-21 fa18-516-02
     code: "https://github.com/cloudmesh-community/graphql"
 other:
