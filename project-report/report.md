@@ -280,7 +280,7 @@ collection_vm.create_index([("isFavorite", pymongo.DESCENDING)])
 ## Conclusion and future work 
 
 Cloudmesh GraphQL App provides a very nice interface so it can be used by 
-non-technical users as well. There are some performance bottlencks which we 
+non-technical users as well. There are some performance bottlenecks which we 
 observerd for sorting, but it is not actually GraphQL issue because the sorting
 function was provided by `mongoengine`. We think that after indexing and tweaking
 some parameters for mongodb it can be improved but we haven't tried it. In future 
