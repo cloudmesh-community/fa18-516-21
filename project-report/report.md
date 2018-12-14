@@ -1,4 +1,4 @@
-# Cloudmesh GraphQL App :smiley: fa18-516-21 and fa18-516-02
+# Cloudmesh GraphQL App
 
 | Mihir Shanishchara, Vineet Barshikar
 | mshanish@iu.edu, vbarshik@indiana.edu
